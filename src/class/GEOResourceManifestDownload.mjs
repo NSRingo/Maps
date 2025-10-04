@@ -1,7 +1,8 @@
 import { Console } from "@nsnanocat/util";
 //import { MESSAGE_TYPE, reflectionMergePartial, BinaryReader, WireType, UnknownFieldHandler, isJsonObject, typeofJsonValue, jsonWriteOptions, MessageType } from "@protobuf-ts/runtime";
 import { Resources, ResourceType, ResourceFilterScale, ResourceFilterScenario, ResourceDownloadConnectionType, Resource_ValidationMethod, Resource_UpdateMethod } from "../proto/apple/geo/GEOResourceManifestDownload.js";
-import { TileSetStyle, TileScale, TileSize, GenericTileType, TileSet_TileUpdateBehavior, TileSet_ChecksumType, TileSet_RequestStyle } from "../proto/apple/geo/protobuf/geo.js";
+import { TileScale, TileSize, GenericTileType, TileSet_TileSetVersionUpdateBehavior, TileSet_TileSetChecksumType, TileSet_TileRequestStyle } from "../proto/apple/geo/protobuf/geo.js";
+import { TileSetStyle } from "../proto/apple/geo/protobuf/geo/TileSetStyle.js";
 
 export default class GEOResourceManifestDownload {
 	static decode(rawBody = new Uint8Array([])) {
@@ -22,9 +23,9 @@ export default class GEOResourceManifestDownload {
 					});
 				if (typeof tile.scale !== "undefined") tile.scale = TileScale[tile.scale];
 				if (typeof tile.size !== "undefined") tile.size = TileSize[tile.size];
-				if (typeof tile.updateBehavior !== "undefined") tile.updateBehavior = TileSet_TileUpdateBehavior[tile.updateBehavior];
-				if (typeof tile.checksumType !== "undefined") tile.checksumType = TileSet_ChecksumType[tile.checksumType];
-				if (typeof tile.requestStyle !== "undefined") tile.requestStyle = TileSet_RequestStyle[tile.requestStyle];
+				if (typeof tile.updateBehavior !== "undefined") tile.updateBehavior = TileSet_TileSetVersionUpdateBehavior[tile.updateBehavior];
+				if (typeof tile.checksumType !== "undefined") tile.checksumType = TileSet_TileSetChecksumType[tile.checksumType];
+				if (typeof tile.requestStyle !== "undefined") tile.requestStyle = TileSet_TileRequestStyle[tile.requestStyle];
 				return tile;
 			});
 		if (typeof body.attribution !== "undefined")
@@ -79,9 +80,9 @@ export default class GEOResourceManifestDownload {
 					});
 				if (typeof tile.scale !== "undefined") tile.scale = TileScale[tile.scale];
 				if (typeof tile.size !== "undefined") tile.size = TileSize[tile.size];
-				if (typeof tile.updateBehavior !== "undefined") tile.updateBehavior = TileSet_TileUpdateBehavior[tile.updateBehavior];
-				if (typeof tile.checksumType !== "undefined") tile.checksumType = TileSet_ChecksumType[tile.checksumType];
-				if (typeof tile.requestStyle !== "undefined") tile.requestStyle = TileSet_RequestStyle[tile.requestStyle];
+				if (typeof tile.updateBehavior !== "undefined") tile.updateBehavior = TileSet_TileSetVersionUpdateBehavior[tile.updateBehavior];
+				if (typeof tile.checksumType !== "undefined") tile.checksumType = TileSet_TileSetChecksumType[tile.checksumType];
+				if (typeof tile.requestStyle !== "undefined") tile.requestStyle = TileSet_TileRequestStyle[tile.requestStyle];
 				return tile;
 			});
 		if (typeof body.attribution !== "undefined")
