@@ -1,7 +1,6 @@
 import { $app, Console, done, Lodash as _ } from "@nsnanocat/util";
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
-import GEOPDPlaceRequest from "./class/GEOPDPlaceRequest.mjs";
 // 构造回复数据
 // biome-ignore lint/style/useConst: <explanation>
 let $response = undefined;
@@ -82,32 +81,16 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 					let rawBody = $app === "Quantumult X" ? new Uint8Array($request.bodyBytes ?? []) : ($request.body ?? new Uint8Array());
 					//Console.debug(`isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody, null, 2)}`);
 					switch (url.hostname) {
-						case "gsp-ssl.ls.apple.com":
 						case "dispatcher.is.autonavi.com":
 							switch (url.pathname) {
-								case "/dispatcher.arpc":
 								case "/dispatcher": {
-									/******************  initialization start  *******************/
-									// 先拆分aRPC校验头和protobuf数据体
-									const headerIndex = rawBody.findIndex((element, index) => element === 0x0a && index > 47);
-									Console.debug(`headerIndex: ${headerIndex}`);
-									const Header = rawBody.slice(0, headerIndex);
-									body = rawBody.slice(headerIndex);
-									/******************  initialization finish  *******************/
-									body = GEOPDPlaceRequest.decode(body);
-									Console.debug(`body: ${JSON.stringify(body, null, 2)}`);
-									switch (body.requestType) {
-										case "REQUEST_TYPE_REVERSE_GEOCODING":
-											break;
-									}
-									body.displayRegion = "US";
-									body.clientMetadata.deviceCountryCode = "US";
-									body = GEOPDPlaceRequest.encode(body);
-									/******************  initialization start  *******************/
-									rawBody = new Uint8Array(Header.length + body.length);
-									rawBody.set(Header, 0);
-									rawBody.set(body, Header.length);
-									/******************  initialization finish  *******************/
+									break;
+								}
+							}
+							break;
+						case "gsp-ssl.ls.apple.com":
+							switch (url.pathname) {
+								case "/dispatcher.arpc": {
 									break;
 								}
 							}
@@ -137,19 +120,6 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 				case "gspe1-ssl.ls.apple.com":
 					switch (url.pathname) {
 						case "/pep/gcc":
-							/* // 不使用 echo response
-							$response = {
-								status: 200,
-								headers: {
-									"Content-Type": "text/html",
-									Date: new Date().toUTCString(),
-									Connection: "keep-alive",
-									"Content-Encoding": "identity",
-								},
-								body: Settings.PEP.GCC,
-							};
-							Console.debug(JSON.stringify($response));
-							*/
 							break;
 					}
 					break;

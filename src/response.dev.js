@@ -15,7 +15,7 @@ Console.info(`PATHs: ${PATHs}`);
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 Console.info(`FORMAT: ${FORMAT}`);
-const PLATFORM = ["Location", "Maps"];
+const PLATFORM = ["Maps"];
 if (url.searchParams.get("os") === "watchos") PLATFORM.push("Watch");
 Console.info(`PLATFORM: ${PLATFORM}`);
 (async () => {
@@ -57,15 +57,6 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 					// 路径判断
 					switch (url.pathname) {
 						case "/pep/gcc":
-							_.set(Caches, "pep.gcc", $response.body);
-							Storage.setItem("@iRingo.Location.Caches", Caches);
-							switch (Settings.PEP.GCC) {
-								case "AUTO":
-									break;
-								default:
-									$response.body = Settings.PEP.GCC;
-									break;
-							}
 							break;
 					}
 					//$repsonse.body = new XMLSerializer().serializeToString(body);
