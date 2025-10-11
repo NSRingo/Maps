@@ -79,10 +79,11 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 								//PLIST["com.apple.GEO"].CountryProviders.CN.EnableAlberta = false; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.EnableClientDrapedVectorPolygons = true; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.GEOAddressCorrectionEnabled = true; // CN
-								delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialEventLookupMaxParametersCount; // CN
-								delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialPlaceLookupMaxParametersCount; // CN
+								//delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialEventLookupMaxParametersCount; // CN
+								//delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialPlaceLookupMaxParametersCount; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.LocalitiesAndLandmarksSupported = true; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.NavigationShowHeadingKey = true;
+								PLIST["com.apple.GEO"].CountryProviders.CN.ODcwM0Y2NTgtOTY2M = false; // CN new
 								PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessDifferentialPrivacy = true; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessRealTime = true; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.TransitPayEnabled = true; // CN
@@ -98,6 +99,10 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 								PLIST["com.apple.GEO"].CountryProviders.CN.PedestrianAREnabled = true; // 现实世界中的线路
 								PLIST["com.apple.GEO"].CountryProviders.CN.OpticalHeadingEnabled = true; // 举起以查看
 								PLIST["com.apple.GEO"].CountryProviders.CN.UseCLPedestrianMapMatchedLocations = true; // 导航准确性-增强
+								// Public
+								PLIST["com.apple.GEO"].Q0FFNUI2QUEtRUU2.push("CN");
+								PLIST["com.apple.GEO"].SupportedCountriesCustomRouteCreation.push("CN");
+								PLIST["com.apple.GEO"].VisitedPlacesWarmingSheetCountryEnabled.push("CN");
 							}
 							break;
 						}
