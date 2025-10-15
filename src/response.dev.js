@@ -82,7 +82,7 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 								//delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialEventLookupMaxParametersCount; // CN
 								//delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialPlaceLookupMaxParametersCount; // CN
 								//PLIST["com.apple.GEO"].CountryProviders.CN.LocalitiesAndLandmarksSupported = true; // CN
-								//PLIST["com.apple.GEO"].CountryProviders.CN.NavigationShowHeadingKey = true;
+								PLIST["com.apple.GEO"].CountryProviders.CN.NavigationShowHeadingKey = true; // 导航显示方向键?
 								PLIST["com.apple.GEO"].CountryProviders.CN.ODcwM0Y2NTgtOTY2M = false; // CN new
 								PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessDifferentialPrivacy = true; // CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessRealTime = true; // CN
