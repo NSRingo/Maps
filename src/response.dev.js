@@ -75,43 +75,41 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 							if (PLIST) {
 								// CN
 								PLIST["com.apple.GEO"].CountryProviders.CN.ShouldEnableLagunaBeach = true; // XX
-								//PLIST["com.apple.GEO"].CountryProviders.CN.DrivingMultiWaypointRoutesEnabled = true; // 驾驶导航途径点
+								delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.DrivingMultiWaypointRoutesEnabled; // 路线-驾驶-停靠点
 								//PLIST["com.apple.GEO"].CountryProviders.CN.EnableAlberta = false; // CN
-								PLIST["com.apple.GEO"].CountryProviders.CN.EnableClientDrapedVectorPolygons = true; // CN
-								PLIST["com.apple.GEO"].CountryProviders.CN.GEOAddressCorrectionEnabled = true; // CN
-								//delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialEventLookupMaxParametersCount; // CN
-								//delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialPlaceLookupMaxParametersCount; // CN
-								//PLIST["com.apple.GEO"].CountryProviders.CN.LocalitiesAndLandmarksSupported = true; // CN
-								//PLIST["com.apple.GEO"].CountryProviders.CN.NavigationShowHeadingKey = true; // 导航时显示朝向按钮
-								PLIST["com.apple.GEO"].CountryProviders.CN.ODcwM0Y2NTgtOTY2M = false; // CN new
-								PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessDifferentialPrivacy = true; // CN
-								PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessRealTime = true; // CN
-								PLIST["com.apple.GEO"].CountryProviders.CN.SupportedCountriesCustomRouteCreation = undefined; // 支持创建自定义步行或徒步线路
-								PLIST["com.apple.GEO"].CountryProviders.CN.TransitPayEnabled = true; // 地图 App 中的交通卡和支付卡
-								//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityNetworkDisabled = Settings?.Config?.Defaults?.WiFiQualityNetworkDisabled ?? true; // CN
-								//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityTileDisabled = Settings?.Config?.Defaults?.WiFiQualityTileDisabled ?? true; // CN
-								PLIST["com.apple.GEO"].CountryProviders.CN.SupportsOffline = true; // 支持离线地图
-								//PLIST["com.apple.GEO"].CountryProviders.CN.SupportsCarIntegration = true; // 支持 CarPlay 集成
+								//PLIST["com.apple.GEO"].CountryProviders.CN.EnableClientDrapedVectorPolygons = true; // CN
+								//delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.GEOAddressCorrectionEnabled; // 启用更正地址
+								//delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.GEOBatchSpatialEventLookupMaxParametersCount; // CN
+								//delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.GEOBatchSpatialPlaceLookupMaxParametersCount; // CN
+								delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.LocalitiesAndLandmarksSupported; // 支持地名和地标
+								delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.NavigationShowHeadingKey; // 导航时显示朝向按钮
+								//delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.ODcwM0Y2NTgtOTY2M; // CN ??
+								//delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.POIBusynessDifferentialPrivacy; // POI 繁忙度差分隐私？（需要，默认仅 CN 停用）
+								delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.POIBusynessRealTime; // 兴趣点繁忙度的实时展示？（需要，默认仅 CN 停用）
+								delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.PedestrianAREnabled; // 步行-现实世界中的线路-举起以查看
+								//delete PLIST["com.apple.GEO"]?.CountryProviders?.CN?.SupportedCountriesCustomRouteCreation; // 支持创建自定义步行或徒步线路
+								//PLIST["com.apple.GEO"].CountryProviders.CN.TransitPayEnabled = true; // 地图 App 中的交通卡和支付卡（不需要，默认全局启用）
+								//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityNetworkDisabled = undefined; // CN
+								//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityTileDisabled = undefined; // CN
+								//PLIST["com.apple.GEO"].CountryProviders.CN.SupportsOffline = true; // 支持离线地图（不需要，macOS 不支持）
+								PLIST["com.apple.GEO"].CountryProviders.CN.SupportsCarIntegration = true; // 支持 CarPlay 集成
 								// TW
-								PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenAddresses = true; // TW
-								PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenPlaceNames = true; // TW
-								// US
-								PLIST["com.apple.GEO"].CountryProviders.CN["6694982d2b14e95815e44e970235e230"] = true; // US
-								PLIST["com.apple.GEO"].CountryProviders.CN.PedestrianAREnabled = true; // 步行-现实世界中的线路-举起以查看
-								//PLIST["com.apple.GEO"].CountryProviders.CN.OpticalHeadingEnabled = true; // 步行-导航精确度-增强
-								//PLIST["com.apple.GEO"].CountryProviders.CN.UseCLPedestrianMapMatchedLocations = true; // 使用 Pedestrian 地图匹配位置？
+								//PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenAddresses = true; // TW
+								//PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenPlaceNames = true; // TW
 								// Public
-								PLIST["com.apple.GEO"].Q0FFNUI2QUEtRUU2.push("CN");
-								PLIST["com.apple.GEO"].SupportedCountriesCustomRouteCreation.push("CN"); // 支持创建自定义步行或徒步线路
-								PLIST["com.apple.GEO"].VisitedPlacesWarmingSheetCountryEnabled.push("CN");
+								//PLIST["com.apple.GEO"].GEOMapDarkStylesEnabledKey = "1"; // 深色地图样式启用按钮（不需要，仅 macOS 支持）
+								//if (PLIST["com.apple.GEO"].Q0FFNUI2QUEtRUU2) PLIST["com.apple.GEO"].Q0FFNUI2QUEtRUU2.push("CN");
+								//if (PLIST["com.apple.GEO"].SupportedCountriesCustomRouteCreation) PLIST["com.apple.GEO"].SupportedCountriesCustomRouteCreation.push("CN"); // 支持创建自定义步行或徒步线路
+								//if (PLIST["com.apple.GEO"].VisitedPlacesWarmingSheetCountryEnabled) PLIST["com.apple.GEO"].VisitedPlacesWarmingSheetCountryEnabled.push("CN");
 								// mod
-								PLIST["com.apple.GEO"].DrivingMultiWaypointRoutesEnabled = true; // 路线-驾驶-停靠点
-								PLIST["com.apple.GEO"].LocalitiesAndLandmarksSupported = true; // 支持地名和地标
-								PLIST["com.apple.GEO"].NavigationShowHeadingKey = true; // 导航时显示朝向按钮
-								PLIST["com.apple.GEO"].SupportsCarIntegration = true; // 支持 CarPlay 集成
-								//PLIST["com.apple.GEO"]["6694982d2b14e95815e44e970235e230"] = true; // US
-								PLIST["com.apple.GEO"].OpticalHeadingEnabled = true; // 步行-导航精确度-增强
-								PLIST["com.apple.GEO"].UseCLPedestrianMapMatchedLocations = true; // 使用 Pedestrian 地图匹配位置？
+								PLIST["com.apple.GEO"].DrivingMultiWaypointRoutesEnabled = true; // 路线-驾驶-停靠点（不需要，默认全局启用）
+								PLIST["com.apple.GEO"].LocalitiesAndLandmarksSupported = true; // 支持地名和地标（不需要，默认全局启用）
+								PLIST["com.apple.GEO"].NavigationShowHeadingKey = true; // 导航时显示朝向按钮（需要，默认全局停用）
+								PLIST["com.apple.GEO"]["6694982d2b14e95815e44e970235e230"] = true; // ?（需要，默认仅 US 启用）
+								PLIST["com.apple.GEO"].OpticalHeadingEnabled = true; // 步行-导航精确度-增强（需要，默认仅 US 启用）
+								PLIST["com.apple.GEO"].PedestrianAREnabled = true; // 步行-现实世界中的线路-举起以查看（不需要，默认全局启用）
+								PLIST["com.apple.GEO"].TransitPayEnabled = true; // 地图 App 中的交通卡和支付卡（不需要，默认全局启用）
+								PLIST["com.apple.GEO"].UseCLPedestrianMapMatchedLocations = true; // 使用 Pedestrian 地图匹配位置？（需要，默认仅 US 启用）
 							}
 							break;
 						}
