@@ -58,7 +58,7 @@ export default class GEOResourceManifest {
                 */
 				caches.XX.tileSet.forEach(tile => {
 					if (!caches.CN.tileSet.some(i => i.style === tile.style)) {
-						//Console.warn(`Missing style: ${tile?.style}`);
+						Console.warn(`Missing style: ${tile?.style}`);
 						tileSet.push(tile);
 					}
 				});
@@ -93,11 +93,6 @@ export default class GEOResourceManifest {
 						//Console.warn(`Basic baseURL: ${tile?.baseURL}`);
 						break;
 					case "RASTER_SATELLITE": // 7 卫星地图（2D）
-					case "RASTER_SATELLITE_NIGHT": // 33 卫星地图（2D/夜间）
-					case "RASTER_SATELLITE_DIGITIZE": // 35 卫星地图（2D/数字化）
-					case "RASTER_SATELLITE_ASTC": // 45 卫星地图（2D/ASTC）
-					case "RASTER_SATELLITE_POLAR": // 91 卫星地图（2D/极地）
-					case "RASTER_SATELLITE_POLAR_NIGHT": // 95 卫星地图（2D/极地/夜间）
 						//Console.warn(`Satellite style: ${tile?.style}`);
 						switch (settings.TileSet.Satellite) {
 							case "HYBRID":
@@ -107,6 +102,102 @@ export default class GEOResourceManifest {
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
 								break;
 							case "XX":
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Satellite baseURL: ${tile?.baseURL}`);
+						break;
+					case "RASTER_SATELLITE_NIGHT": // 33 卫星地图（2D/夜间）
+						//Console.warn(`Satellite style: ${tile?.style}`);
+						switch (settings.TileSet.Satellite) {
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "HYBRID":
+							case "XX":
+							default:
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Satellite baseURL: ${tile?.baseURL}`);
+						break;
+					case "RASTER_SATELLITE_DIGITIZE": // 35 卫星地图（2D/数字化）
+					case "RASTER_SATELLITE_ASTC": // 45 卫星地图（2D/ASTC）
+						//Console.warn(`Satellite style: ${tile?.style}`);
+						switch (settings.TileSet.Satellite) {
+							case "HYBRID":
+							default:
+								break;
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "XX":
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Satellite baseURL: ${tile?.baseURL}`);
+						break;
+					case "RASTER_SATELLITE_POLAR": // 91 卫星地图（2D/极地）
+					case "RASTER_SATELLITE_POLAR_NIGHT": // 95 卫星地图（2D/极地/夜间）
+						//Console.warn(`Satellite style: ${tile?.style}`);
+						switch (settings.TileSet.Satellite) {
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "HYBRID":
+							case "XX":
+							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
 										tile =
@@ -215,23 +306,145 @@ export default class GEOResourceManifest {
 					case "SPUTNIK_C3M": // 15 卫星地图（3D/俯瞰）C3模型
 					case "SPUTNIK_DSM": // 16 卫星地图（3D/俯瞰）数字表面模型
 					case "SPUTNIK_DSM_GLOBAL": // 17 卫星地图（3D/俯瞰）全球数字表面模型
-					case "SPUTNIK_VECTOR_BORDER": // 34 卫星地图（3D/俯瞰）边界
-					case "FLYOVER_C3M_MESH": // 42 俯瞰C3模型（四处看看）?
-					case "FLYOVER_C3M_JPEG_TEXTURE": // 43 俯瞰C3模型纹理（四处看看）?
-					case "FLYOVER_C3M_ASTC_TEXTURE": // 44 俯瞰C3模型纹理（四处看看）?
-					case "FLYOVER_VISIBILITY": // 49 俯瞰可见性（四处看看）?
-					case "FLYOVER_SKYBOX": // 50 俯瞰天空盒（四处看看）?
-					case "FLYOVER_NAVGRAPH": // 51 俯瞰导航图（四处看看）?
-					case "FLYOVER_METADATA": // 52 俯瞰元数据
-						//Console.warn(`Flyover style: ${tile?.style}`);
-						switch (settings.TileSet.Flyover) {
+						//Console.warn(`Satellite style: ${tile?.style}`);
+						switch (settings.TileSet.Satellite) {
 							case "HYBRID":
-							default:
 								break;
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
 								break;
 							case "XX":
+							default:
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						break;
+					case "SPUTNIK_VECTOR_BORDER": // 34 卫星地图（3D/俯瞰）边界
+						//Console.warn(`Satellite style: ${tile?.style}`);
+						switch (settings.TileSet.Satellite) {
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "HYBRID":
+							case "XX":
+							default:
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						break;
+					case "FLYOVER_C3M_MESH": // 42 俯瞰C3模型（四处看看）?
+					case "FLYOVER_C3M_JPEG_TEXTURE": // 43 俯瞰C3模型纹理（四处看看）?
+					case "FLYOVER_C3M_ASTC_TEXTURE": // 44 俯瞰C3模型纹理（四处看看）?
+						//Console.warn(`Flyover style: ${tile?.style}`);
+						switch (settings.TileSet.Flyover) {
+							case "HYBRID":
+								break;
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "XX":
+							default:
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						break;
+					case "FLYOVER_VISIBILITY": // 49 俯瞰可见性（四处看看）?
+					case "FLYOVER_SKYBOX": // 50 俯瞰天空盒（四处看看）?
+					case "FLYOVER_NAVGRAPH": // 51 俯瞰导航图（四处看看）?
+						//Console.warn(`Flyover style: ${tile?.style}`);
+						switch (settings.TileSet.Flyover) {
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "HYBRID":
+							case "XX":
+							default:
+								switch (typeof tile.dataSet) {
+									case "undefined":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
+											tile;
+										break;
+									case "number":
+										tile =
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
+											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
+											tile;
+										break;
+								}
+								break;
+						}
+						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						break;
+					case "FLYOVER_METADATA": // 52 俯瞰元数据
+						//Console.warn(`Flyover style: ${tile?.style}`);
+						switch (settings.TileSet.Flyover) {
+							case "HYBRID":
+								break;
+							case "CN":
+								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
+								break;
+							case "XX":
+							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
 										tile =
@@ -267,12 +480,12 @@ export default class GEOResourceManifest {
 						//Console.warn(`Munin style: ${tile?.style}`);
 						switch (settings.TileSet.Munin) {
 							case "HYBRID":
-							default:
 								break;
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
 								break;
 							case "XX":
+							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
 										tile =

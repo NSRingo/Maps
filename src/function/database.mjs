@@ -20,8 +20,8 @@ export default {
 				Satellite: "HYBRID",
 				Traffic: "CN",
 				POI: "CN",
-				Flyover: "XX",
-				Munin: "XX",
+				Flyover: "HYBRID",
+				Munin: "HYBRID",
 			},
 			GeoManifest: {
 				Dynamic: {
