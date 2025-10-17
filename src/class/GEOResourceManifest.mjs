@@ -259,7 +259,7 @@ export default class GEOResourceManifest {
 					case "VECTOR_SPR_MODELS": // 59
 					case "VECTOR_SPR_MATERIALS": // 60
 					case "VECTOR_SPR_METADATA": // 61
-					case "VECTOR_SPR_ROADS": // 66
+					case "VECTOR_SPR_ROADS": // 66 卫星图下的道路网格，同时影响四处看看功能
 					case "VECTOR_SPR_STANDARD": // 67
 					case "SPR_ASSET_METADATA": // 78?
 					case "VECTOR_SPR_POLAR": // 79
