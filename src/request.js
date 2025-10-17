@@ -14,15 +14,12 @@ Console.info(`PATHs: ${PATHs}`);
 // 解析格式
 const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 Console.info(`FORMAT: ${FORMAT}`);
-const PLATFORM = ["Maps"];
-if (url.searchParams.get("os") === "watchos") PLATFORM.push("Watch");
-Console.info(`PLATFORM: ${PLATFORM}`);
-(async () => {
+!(async () => {
 	/**
 	 * 设置
 	 * @type {{Settings: import('./types').Settings}}
 	 */
-	const { Settings, Caches, Configs } = setENV("iRingo", PLATFORM, database);
+	const { Settings, Caches, Configs } = setENV("iRingo", "Maps", database);
 	Console.logLevel = Settings.LogLevel;
 	// 创建空数据
 	let body = {};
@@ -101,27 +98,7 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 							break;
 					}
 					break;
-				case "gspe1-ssl.ls.apple.com":
-					switch (url.pathname) {
-						case "/pep/gcc":
-							/* // 不使用 echo response
-									$response = {
-										status: 200,
-										headers: {
-											"Content-Type": "text/html",
-											Date: new Date().toUTCString(),
-											Connection: "keep-alive",
-											"Content-Encoding": "identity",
-										},
-										body: Settings.PEP.GCC,
-									};
-									Console.debug(JSON.stringify($response));
-									*/
-							break;
-					}
-					break;
 				case "gspe35-ssl.ls.apple.com":
-				case "gspe35-ssl.ls.apple.cn":
 					switch (url.pathname) {
 						case "/config/announcements":
 							switch (Settings?.Config?.Announcements?.Environment) {
@@ -141,7 +118,7 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 								case "AUTO":
 									switch (Caches?.pep?.gcc) {
 										default:
-											url.searchParams.set("country_code", Caches?.pep?.gcc ?? "US");
+											url.searchParams.set("country_code", Caches.pep.gcc);
 											break;
 										case "CN":
 										case undefined:

@@ -1,10 +1,23 @@
-### 🛠️ Bug Fixes
-  * 修复 `$argument` 和 `$persistentStore` 载入顺序颠倒的问题
-    * 正确顺序为先读取 `$argument` 再读取 `$persistentStore (BoxJs)`
-    * 即，有相同键名时，`$persistentStore (BoxJs)` 的值会覆盖 `$argument` 的值
+### 🆕 New Features
+  * 兼容 iOS/macOS 26。
+  * `默认(Defaults)配置`修改功能现在对任意地区代码均提供解锁功能，不再局限于 `CN` 地区代码，已知解锁功能如下：
+    * 地图 App 中的交通卡和支付卡
+    * 导航时显示朝向按钮
+    * 支持地名和地标
+    * 路线-驾驶-停靠点
+    * 兴趣点(POI)实时繁忙度
+    * 地图-路线-步行-现实世界中的路线-举起以查看
+    * 地图-路线-步行-导航精确度-增强
+    * 地图-为“地图”提供助力-评分与照片
+    * 地图-为“地图”提供助力-显示评分和照片建议
+    * 地图-照片使用-允许照片提供商使用你的照片
 
 ### 🔣 Dependencies
   * 升级了 `@nsnanocat/util`
-    * `util` 由 `submodule` 更改为 `package`
-    * `$platform` 改为 `$app`
-    * 使用了全新的 `Console` polyfill
+
+### ‼️ Breaking Changes
+  * `定位服务(Location Services)`与`地图(Maps)`模块拆分为两个独立脚本与仓库，此仓库对应`地图(Maps)`。
+    * 向后兼容代码将于`定位服务(Location Services)`模块发布后从`地图(Maps)`脚本中移除。
+  * 移除了 `俯瞰(Flyover)` 和 `四处看看(Look Around)` 设置项，这两者将始终启用并为 `HYBIRD(混合)` 模式。
+    * `BoxJs`中的相关选项将于`定位服务(Location Services)`模块发布后从`地图(Maps)`设置面板中移除。
+  * 3D 卫星图像选项合并至 `Satellite` 设置项中，默认为 `HYBIRD(混合)` 模式。

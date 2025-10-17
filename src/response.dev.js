@@ -18,7 +18,7 @@ Console.info(`FORMAT: ${FORMAT}`);
 const PLATFORM = ["Maps"];
 if (url.searchParams.get("os") === "watchos") PLATFORM.push("Watch");
 Console.info(`PLATFORM: ${PLATFORM}`);
-(async () => {
+!(async () => {
 	/**
 	 * 设置
 	 * @type {{Settings: import('./types').Settings}}
@@ -52,15 +52,6 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 		case "application/x-plist":
 			// 主机判断
 			switch (url.hostname) {
-				case "gspe1-ssl.ls.apple.com":
-					//body = new DOMParser().parseFromString($response.body, FORMAT);
-					// 路径判断
-					switch (url.pathname) {
-						case "/pep/gcc":
-							break;
-					}
-					//$repsonse.body = new XMLSerializer().serializeToString(body);
-					break;
 				case "configuration.ls.apple.com":
 					//body = await PLISTs("plist2json", $response.body);
 					BigInt.prototype.toJSON = function () {
@@ -92,7 +83,7 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 								//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityNetworkDisabled = undefined; // CN
 								//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityTileDisabled = undefined; // CN
 								//PLIST["com.apple.GEO"].CountryProviders.CN.SupportsOffline = true; // 支持离线地图（不需要，macOS 不支持）
-								PLIST["com.apple.GEO"].CountryProviders.CN.SupportsCarIntegration = true; // 支持 CarPlay 集成
+								PLIST["com.apple.GEO"].CountryProviders.CN.SupportsCarIntegration = true; // 支持车辆集成
 								// TW
 								//PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenAddresses = true; // TW
 								//PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenPlaceNames = true; // TW
