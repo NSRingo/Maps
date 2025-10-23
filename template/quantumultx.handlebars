@@ -8,6 +8,16 @@
 #!date = {{now "yyyy-MM-dd HH:mm:ss"}}
 #!version = {{@package 'version'}}
 
+#[filter_local]
+# 🗺️ Amap
+host-suffix, is.autonavi.com, direct
+# 🗺️ Maps
+host, gspe11-2-cn-ssl.ls.apple.com, direct
+host, gspe12-cn-ssl.ls.apple.com, direct
+host, gspe19-cn-ssl.ls.apple.com, direct
+host, gspe19-2-cn-ssl.ls.apple.com, direct
+host, gspe79-cn-ssl.ls.apple.com, direct
+
 #[rewrite_local]
 # 🗺️ Network Defaults
 ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults url script-request-header https://github.com/NSRingo/GeoServices/releases/download/v{{@package 'version'}}/request.bundle.js

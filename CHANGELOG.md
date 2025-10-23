@@ -24,3 +24,6 @@
   * 移除了 `俯瞰(Flyover)` 和 `四处看看(Look Around)` 设置项，这两者将始终启用并为 `HYBIRD(混合)` 模式。
     * `BoxJs`中的相关选项将于`定位服务(Location Services)`模块发布后从`地图(Maps)`设置面板中移除。
   * 3D 卫星图像选项合并至 `Satellite` 设置项中，默认为 `HYBIRD(混合)` 模式。
+
+### 🔄 Other Changes
+  * 更新了模块/插件的内置分流规则。
