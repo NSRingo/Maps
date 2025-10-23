@@ -88,9 +88,9 @@ export default class GEOResourceManifest {
 					//case "VECTOR_TRANSIT_SELECTION": // 47 公共交通选区?
 					//case "VECTOR_STREET_LANDMARKS": // 64 街道地标?
 					//case "VECTOR_BUILDINGS_V2": // 73 建筑模型V2（3D/上色）
-						//Console.warn(`Basic style: ${tile?.style}`);
+						//Console.info(`Basic style: ${tile?.style}`);
 						//tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
-						//Console.warn(`Basic baseURL: ${tile?.baseURL}`);
+						//Console.info(`Basic baseURL: ${tile?.baseURL}`);
 						//break;
 					case "RASTER_SATELLITE": // 7 卫星地图（2D）
 					case "RASTER_SATELLITE_NIGHT": // 33 卫星地图（2D/夜间）
@@ -98,7 +98,7 @@ export default class GEOResourceManifest {
 					case "RASTER_SATELLITE_ASTC": // 45 卫星地图（2D/ASTC）
 					case "RASTER_SATELLITE_POLAR": // 91 卫星地图（2D/极地）
 					case "RASTER_SATELLITE_POLAR_NIGHT": // 95 卫星地图（2D/极地/夜间）
-						//Console.warn(`Satellite style: ${tile?.style}`);
+						//Console.info(`Satellite style: ${tile?.style}`);
 						switch (settings.TileSet.Satellite) {
 							case "HYBRID":
 							default:
@@ -127,7 +127,7 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Satellite baseURL: ${tile?.baseURL}`);
+						//Console.info(`Satellite baseURL: ${tile?.baseURL}`);
 						break;
 					//case "VECTOR_TRAFFIC_SEGMENTS_FOR_RASTER": // 2 交通状况分段（卫星地图:显示交通状况）?
 					//case "VECTOR_TRAFFIC_INCIDENTS_FOR_RASTER": // 3 交通状况事件（卫星地图:显示交通状况）?
@@ -138,7 +138,7 @@ export default class GEOResourceManifest {
 					//case "VECTOR_TRAFFIC_STATIC": // 26 交通状况静态?
 					//case "VECTOR_TRAFFIC_SKELETON_WITH_HISTORICAL": // 28 交通状况骨架（卫星地图:显示历史交通状况）?
 					//case "VECTOR_TRAFFIC_V2": // 86 交通状况V2
-						//Console.warn(`Traffic style: ${tile?.style}`);
+						//Console.info(`Traffic style: ${tile?.style}`);
 						/*
 						switch (settings.TileSet.Traffic) {
 							case "HYBRID":
@@ -169,7 +169,7 @@ export default class GEOResourceManifest {
 								break;
 						}
                         */
-						//Console.warn(`Traffic baseURL: ${tile?.baseURL}`);
+						//Console.info(`Traffic baseURL: ${tile?.baseURL}`);
 						//break;
 					//case "VECTOR_POI": // 13 兴趣点
 					//case "VECTOR_STREET_POI": // 56 街道兴趣点
@@ -178,7 +178,7 @@ export default class GEOResourceManifest {
 					//case "POI_BUSYNESS": // 74 兴趣点繁忙程度?
 					//case "POI_DP_BUSYNESS": // 75 兴趣点DP繁忙程度?
 					//case "VECTOR_POI_V2_UPDATE": // 84 兴趣点V2更新
-						//Console.warn(`POI style: ${tile?.style}`);
+						//Console.info(`POI style: ${tile?.style}`);
 						/*
 						switch (settings.TileSet.POI) {
 							case "HYBRID":
@@ -209,13 +209,13 @@ export default class GEOResourceManifest {
 								break;
 						}
                         */
-						//Console.warn(`POI baseURL: ${tile?.baseURL}`);
+						//Console.info(`POI baseURL: ${tile?.baseURL}`);
 						//break;
 					case "SPUTNIK_METADATA": // 14 卫星地图（3D/俯瞰）元数据
 					case "SPUTNIK_C3M": // 15 卫星地图（3D/俯瞰）C3模型
 					case "SPUTNIK_DSM": // 16 卫星地图（3D/俯瞰）数字表面模型
 					case "SPUTNIK_DSM_GLOBAL": // 17 卫星地图（3D/俯瞰）全球数字表面模型
-						//Console.warn(`Satellite style: ${tile?.style}`);
+						//Console.info(`Satellite style: ${tile?.style}`);
 						switch (settings.TileSet.Satellite) {
 							case "HYBRID":
 							default:
@@ -244,10 +244,10 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						//Console.info(`Flyover baseURL: ${tile?.baseURL}`);
 						break;
 					case "SPUTNIK_VECTOR_BORDER": // 34 卫星地图（3D/俯瞰）边界（决定能否显示地球模型）
-						//Console.warn(`Satellite style: ${tile?.style}`);
+						//Console.info(`Satellite style: ${tile?.style}`);
 						switch ("HYBRID" ?? settings.TileSet.Satellite) {
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
@@ -275,13 +275,13 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Satellite baseURL: ${tile?.baseURL}`);
+						//Console.info(`Satellite baseURL: ${tile?.baseURL}`);
 						Console.debug(`Satellite tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
 					case "FLYOVER_C3M_MESH": // 42 俯瞰C3模型（四处看看）?
 					case "FLYOVER_C3M_JPEG_TEXTURE": // 43 俯瞰C3模型纹理（四处看看）?
 					case "FLYOVER_C3M_ASTC_TEXTURE": // 44 俯瞰C3模型纹理（四处看看）?
-						//Console.warn(`Flyover style: ${tile?.style}`);
+						//Console.info(`Flyover style: ${tile?.style}`);
 						switch (settings.TileSet.Flyover) {
 							case "HYBRID":
 								break;
@@ -310,12 +310,12 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						//Console.info(`Flyover baseURL: ${tile?.baseURL}`);
 						break;
 					case "FLYOVER_VISIBILITY": // 49 俯瞰可见性（四处看看）?
 					case "FLYOVER_SKYBOX": // 50 俯瞰天空盒（四处看看）?
 					case "FLYOVER_NAVGRAPH": // 51 俯瞰导航图（四处看看）?
-						//Console.warn(`Flyover style: ${tile?.style}`);
+						//Console.info(`Flyover style: ${tile?.style}`);
 						switch (settings.TileSet.Flyover) {
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
@@ -343,11 +343,11 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						//Console.info(`Flyover baseURL: ${tile?.baseURL}`);
 						Console.debug(`Flyover tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
 					case "FLYOVER_METADATA": // 52 俯瞰元数据
-						//Console.warn(`Flyover style: ${tile?.style}`);
+						//Console.info(`Flyover style: ${tile?.style}`);
 						switch (settings.TileSet.Flyover) {
 							case "HYBRID":
 								break;
@@ -376,7 +376,7 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Flyover baseURL: ${tile?.baseURL}`);
+						//Console.info(`Flyover baseURL: ${tile?.baseURL}`);
 						break;
 					case "MUNIN_METADATA": // 57 四处看看 元数据
 					//case "VECTOR_SPR_MERCATOR": // 58
@@ -388,7 +388,7 @@ export default class GEOResourceManifest {
 					//case "SPR_ASSET_METADATA": // 78? (排除)
 					//case "VECTOR_SPR_POLAR": // 79
 					//case "VECTOR_SPR_MODELS_OCCLUSION": // 82? (排除)
-						//Console.warn(`Munin style: ${tile?.style}`);
+						//Console.info(`Munin style: ${tile?.style}`);
 						switch (settings.TileSet.Munin) {
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
@@ -416,7 +416,7 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						//Console.warn(`Munin baseURL: ${tile?.baseURL}`);
+						//Console.info(`Munin baseURL: ${tile?.baseURL}`);
 						Console.debug(`Munin tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
 					//case "VECTOR_REALISTIC": // 18 逼真地图?
@@ -426,9 +426,9 @@ export default class GEOResourceManifest {
 					//case "VECTOR_TOPOGRAPHIC": // 83 地形图?
 					//case "VECTOR_ROAD_SELECTION": // 87 道路选区?
 					//case "VECTOR_REGION_METADATA": // 88 区域元数据?
-						//Console.warn(`TEST style: ${tile?.style}`);
+						//Console.info(`TEST style: ${tile?.style}`);
 						//tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
-						//Console.warn(`TEST baseURL: ${tile?.baseURL}`);
+						//Console.info(`TEST baseURL: ${tile?.baseURL}`);
 						//break;
 					//case "VECTOR_TRACKS": // 62 轨道?
 					//case "COARSE_LOCATION_POLYGONS": // 65 粗略位置多边形?
@@ -445,7 +445,7 @@ export default class GEOResourceManifest {
 					//case "UNUSED_99": // 99 未使用
 						//break;
 					default:
-						Console.debug(`default style: ${tile?.style}`);
+						Console.info(`default style: ${tile?.style}`);
 						/*
                         switch (countryCode) {
                             case "CN":
@@ -457,7 +457,8 @@ export default class GEOResourceManifest {
                                 break;
                         };
                         */
-						Console.debug(`default baseURL: ${tile?.baseURL}`);
+						Console.info(`default baseURL: ${tile?.baseURL}`);
+						Console.debug(`default tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
 				}
 				return tile;
