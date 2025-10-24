@@ -109,6 +109,13 @@ Console.info(`PLATFORM: ${PLATFORM}`);
 					//$response.body = await PLISTs("json2plist", body); // json2plist
 					$response.body = XML.stringify(body);
 					break;
+				case "gspe1-ssl.ls.apple.com":
+					// 路径判断
+					switch (url.pathname) {
+						case "/pep/gcc":
+							break;
+					}
+					break;
 			}
 			break;
 		case "text/vtt":

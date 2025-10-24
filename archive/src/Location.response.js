@@ -2,12 +2,12 @@ import _ from '../ENV/Lodash.mjs'
 import $Storage from '../ENV/$Storage.mjs'
 import ENV from "../ENV/ENV.mjs";
 import URI from "../URI/URI.mjs";
-import XML from "../XML/XML.mjs";
+import XML from "../../src/XML/XML.mjs";
 
 import Database from "../database/index.mjs";
-import setENV from "../function/setENV.mjs";
+import setENV from "../../src/function/setENV.mjs";
 
-const $ = new ENV(" iRingo: 📍 Location v3.1.6(4) response.beta");
+const $ = new ENV(" iRingo: 📍 Location v3.1.6(4) response");
 
 /***************** Processing *****************/
 // 解构URL
@@ -39,9 +39,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/x-mpegurl":
 				case "application/vnd.apple.mpegurl":
 				case "audio/mpegurl":
-					//body = M3U8.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
-					//$response.body = M3U8.stringify(body);
 					break;
 				case "text/xml":
 				case "text/html":
@@ -49,11 +46,9 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/xml":
 				case "application/plist":
 				case "application/x-plist":
-					$.log(`🚧 body: ${body}`, "");
 					// 主机判断
 					switch (HOST) {
 						case "gspe1-ssl.ls.apple.com":
-							//body = new DOMParser().parseFromString($response.body, FORMAT);
 							// 路径判断
 							switch (PATH) {
 								case "pep/gcc":
@@ -68,12 +63,9 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 									};
 									break;
 							};
-							//$repsonse.body = new XMLSerializer().serializeToString(body);
 							break;
 						case "configuration.ls.apple.com":
-							//body = await PLISTs("plist2json", $response.body);
 							body = XML.parse($response.body);
-							$.log(`🚧 body: ${JSON.stringify(body)}`, "");
 							// 路径判断
 							switch (PATH) {
 								case "config/defaults":
@@ -83,25 +75,17 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 										// CN
 										PLIST["com.apple.GEO"].CountryProviders.CN.ShouldEnableLagunaBeach = Settings?.Config?.Defaults?.LagunaBeach ?? true; // XX
 										PLIST["com.apple.GEO"].CountryProviders.CN.DrivingMultiWaypointRoutesEnabled = Settings?.Config?.Defaults?.DrivingMultiWaypointRoutesEnabled ?? true; // 驾驶导航途径点
-										//PLIST["com.apple.GEO"].CountryProviders.CN.EnableAlberta = false; // CN
-										//PLIST["com.apple.GEO"].CountryProviders.CN.EnableClientDrapedVectorPolygons = false; // CN
 										PLIST["com.apple.GEO"].CountryProviders.CN.GEOAddressCorrectionEnabled = Settings?.Config?.Defaults?.GEOAddressCorrection ?? true; // CN
 										if (Settings?.Config?.Defaults?.LookupMaxParametersCount ?? true) {
 											delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialEventLookupMaxParametersCount // CN
 											delete PLIST["com.apple.GEO"].CountryProviders.CN.GEOBatchSpatialPlaceLookupMaxParametersCount // CN
 										}
 										PLIST["com.apple.GEO"].CountryProviders.CN.LocalitiesAndLandmarksSupported = Settings?.Config?.Defaults?.LocalitiesAndLandmarks ?? true; // CN
-										//PLIST["com.apple.GEO"].CountryProviders.CN.NavigationShowHeadingKey = true;
 										PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessDifferentialPrivacy = Settings?.Config?.Defaults?.POIBusyness ?? true; // CN
 										PLIST["com.apple.GEO"].CountryProviders.CN.POIBusynessRealTime = Settings?.Config?.Defaults?.POIBusyness ?? true; // CN
 										PLIST["com.apple.GEO"].CountryProviders.CN.TransitPayEnabled = Settings?.Config?.Defaults?.TransitPayEnabled ?? true; // CN
-										//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityNetworkDisabled = Settings?.Config?.Defaults?.WiFiQualityNetworkDisabled ?? true; // CN
-										//PLIST["com.apple.GEO"].CountryProviders.CN.WiFiQualityTileDisabled = Settings?.Config?.Defaults?.WiFiQualityTileDisabled ?? true; // CN
 										PLIST["com.apple.GEO"].CountryProviders.CN.SupportsOffline = Settings?.Config?.Defaults?.SupportsOffline ?? true; // CN
 										PLIST["com.apple.GEO"].CountryProviders.CN.SupportsCarIntegration = Settings?.Config?.Defaults?.SupportsCarIntegration ?? true; // CN
-										// TW
-										//PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenAddresses = true; // TW
-										//PLIST["com.apple.GEO"].CountryProviders.CN.GEOShouldSpeakWrittenPlaceNames = true; // TW
 										// US
 										PLIST["com.apple.GEO"].CountryProviders.CN["6694982d2b14e95815e44e970235e230"] = Settings?.Config?.Defaults?.["6694982d2b14e95815e44e970235e230"] ?? true; // US
 										PLIST["com.apple.GEO"].CountryProviders.CN.PedestrianAREnabled = Settings?.Config?.Defaults?.PedestrianAR ?? true; // 现实世界中的线路
@@ -110,23 +94,15 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 									};
 									break;
 							};
-							$.log(`🚧 body: ${JSON.stringify(body)}`, "");
-							//$response.body = await PLISTs("json2plist", body); // json2plist
 							$response.body = XML.stringify(body);
 							break;
 					};
 					break;
 				case "text/vtt":
 				case "application/vtt":
-					//body = VTT.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
-					//$response.body = VTT.stringify(body);
 					break;
 				case "text/json":
 				case "application/json":
-					body = JSON.parse($response.body ?? "{}");
-					$.log(`🚧 body: ${JSON.stringify(body)}`, "");
-					$response.body = JSON.stringify(body);
 					break;
 				case "application/protobuf":
 				case "application/x-protobuf":

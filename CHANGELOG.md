@@ -19,10 +19,10 @@
   * 升级了 `@nsnanocat/util`
 
 ### ‼️ Breaking Changes
-  * `定位服务(Location Services)`与`地图(Maps)`模块拆分为两个独立脚本与仓库，此仓库对应`地图(Maps)`。
-    * 向后兼容代码将于`定位服务(Location Services)`模块发布后从`地图(Maps)`脚本中移除。
+  * `定位服务(Location Service)`与`地图(Maps)`模块拆分为两个独立脚本与仓库，此仓库对应`地图(Maps)`。
+    * `定位服务(Location Service)`模块已发布，向后兼容代码已从`地图(Maps)`脚本中移除。
   * 移除了 `俯瞰(Flyover)` 和 `四处看看(Look Around)` 设置项，这两者将始终启用并为 `HYBIRD(混合)` 模式。
-    * `BoxJs`中的相关选项将于`定位服务(Location Services)`模块发布后从`地图(Maps)`设置面板中移除。
+    * `定位服务(Location Service)`模块已发布，`BoxJs`中的相关选项已从`地图(Maps)`设置面板中移除。
   * 3D 卫星图像选项合并至 `Satellite` 设置项中，默认为 `HYBIRD(混合)` 模式。
 
 ### 🔄 Other Changes
