@@ -16,6 +16,7 @@ export default {
 				LocationShift: "AUTO",
 			},
 			TileSet: {
+				Earth: "AUTO",
 				Map: "CN",
 				Satellite: "HYBRID",
 				Traffic: "CN",

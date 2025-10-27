@@ -93,6 +93,21 @@ export interface Settings {
 };
     TileSet?: {
     /**
+         * [瓦片数据集] 地球图像
+         *
+         * 此选项影响地球视图下行政区划、地貌等信息的显示。
+         *
+         * @remarks
+         *
+         * Possible values:
+         * - `'AUTO'` - 🇺🇳自动（随[动态配置]版本自动选择）
+         * - `'AutoNavi'` - 🧭高德版（主要显示国家与国界）
+         * - `'Apple'` - Apple（主要显示城市与地貌）
+         *
+         * @defaultValue "AUTO"
+         */
+        Earth?: 'AUTO' | 'AutoNavi' | 'Apple';
+    /**
          * [瓦片数据集] 卫星图像
          *
          * 此选项影响所列位图、影像与模型数据。
@@ -108,36 +123,6 @@ export interface Settings {
          * @defaultValue "HYBRID"
          */
         Satellite?: 'AUTO' | 'HYBRID' | 'CN' | 'XX';
-    /**
-         * [瓦片数据集] 飞行俯瞰
-         *
-         * 此选项影响飞行俯瞰全球各地的主要地标和城市功能。
-         *
-         * @remarks
-         *
-         * Possible values:
-         * - `'AUTO'` - 🇺🇳自动（随[动态配置]版本自动选择）
-         * - `'CN'` - 🇨🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈚️）
-         * - `'XX'` - 🇺🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈶️）
-         *
-         * @defaultValue "XX"
-         */
-        Flyover?: 'AUTO' | 'CN' | 'XX';
-    /**
-         * [瓦片数据集] 四处看看
-         *
-         * 此选项影响 360 度全景视角在某些地点四处看看功能。
-         *
-         * @remarks
-         *
-         * Possible values:
-         * - `'AUTO'` - 🇺🇳自动（随[动态配置]版本自动选择）
-         * - `'CN'` - 🇨🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈚️）
-         * - `'XX'` - 🇺🇳Apple（🇨🇳:🈚️ | 🇺🇳:🈶️）
-         *
-         * @defaultValue "XX"
-         */
-        Munin?: 'AUTO' | 'CN' | 'XX';
 };
     /**
      * [调试] 日志等级

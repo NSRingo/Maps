@@ -104,6 +104,19 @@ export default defineConfig({
 			type: "string",
 		},
 		{
+			defaultValue: "AUTO",
+			description: "此选项影响地球视图下行政区划、地貌等信息的显示。",
+			key: "TileSet.Earth",
+			name: "[瓦片数据集] 地球图像",
+			options: [
+				{ key: "AUTO", label: "🇺🇳自动（随[动态配置]版本自动选择）" },
+				//{ key: "HYBRID", label: "混合" },
+				{ key: "AutoNavi", label: "🧭高德版（主要显示国家与国界）" },
+				{ key: "Apple", label: "Apple（主要显示城市与地貌）" },
+			],
+			type: "string",
+		},
+		{
 			defaultValue: "HYBRID",
 			description: "此选项影响所列位图、影像与模型数据。",
 			key: "TileSet.Satellite",
