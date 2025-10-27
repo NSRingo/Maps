@@ -389,8 +389,8 @@ export default class GEOResourceManifest {
 					//case "VECTOR_SPR_MODELS": // 59
 					//case "VECTOR_SPR_MATERIALS": // 60
 					//case "VECTOR_SPR_METADATA": // 61
-					case "VECTOR_SPR_ROADS": // 66 (卫星图下的道路网格? 同时影响四处看看功能?)
-					//case "VECTOR_SPR_STANDARD": // 67
+					case "VECTOR_SPR_ROADS": // 66 (卫星图下的道路网格和四处看看可用性)
+					case "VECTOR_SPR_STANDARD": // 67 (影响 1-6 级视图下的行政区域名称与资料显示版本)
 					//case "SPR_ASSET_METADATA": // 78? (排除)
 					//case "VECTOR_SPR_POLAR": // 79
 					//case "VECTOR_SPR_MODELS_OCCLUSION": // 82? (排除)
