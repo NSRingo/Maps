@@ -212,6 +212,7 @@ export default class GEOResourceManifest {
                         */
 						//Console.info(`POI baseURL: ${tile?.baseURL}`);
 						//break;
+					/*
 					case "SPUTNIK_METADATA": // 14 卫星地图（3D/俯瞰）元数据
 					case "SPUTNIK_C3M": // 15 卫星地图（3D/俯瞰）C3模型
 					case "SPUTNIK_DSM": // 16 卫星地图（3D/俯瞰）数字表面模型
@@ -280,6 +281,7 @@ export default class GEOResourceManifest {
 						Console.info(`Satellite baseURL: ${tile?.baseURL}`);
 						Console.debug(`Satellite tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
+					*/
 					case "FLYOVER_C3M_MESH": // 42 俯瞰C3模型（四处看看）?
 					case "FLYOVER_C3M_JPEG_TEXTURE": // 43 俯瞰C3模型纹理（四处看看）?
 					case "FLYOVER_C3M_ASTC_TEXTURE": // 44 俯瞰C3模型纹理（四处看看）?
