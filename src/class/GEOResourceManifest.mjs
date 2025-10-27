@@ -90,7 +90,7 @@ export default class GEOResourceManifest {
 					case "VECTOR_STREET_LANDMARKS": // 64 街道地标?
 					case "VECTOR_BUILDINGS_V2": // 73 建筑模型V2（3D/上色）
 						Console.info(`Basic style: ${tile?.style}`);
-						tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
+						tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
 						Console.info(`Basic baseURL: ${tile?.baseURL}`);
 						break;
 					*/
@@ -111,16 +111,10 @@ export default class GEOResourceManifest {
 							case "XX":
 								switch (typeof tile.dataSet) {
 									case "undefined":
-										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
-											tile;
+										tile = caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.XX?.tileSet?.find(i => i.style === tile.style) || tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -155,14 +149,12 @@ export default class GEOResourceManifest {
 									case "undefined":
 										tile =
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
 											tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -195,14 +187,12 @@ export default class GEOResourceManifest {
 									case "undefined":
 										tile =
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
 											tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -232,14 +222,12 @@ export default class GEOResourceManifest {
 									case "undefined":
 										tile =
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
 											tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -266,14 +254,12 @@ export default class GEOResourceManifest {
 									case "undefined":
 										tile =
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
 											tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -300,16 +286,10 @@ export default class GEOResourceManifest {
 							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
-										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
-											tile;
+										tile = caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.XX?.tileSet?.find(i => i.style === tile.style) || tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -334,16 +314,10 @@ export default class GEOResourceManifest {
 							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
-										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
-											tile;
+										tile = caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.XX?.tileSet?.find(i => i.style === tile.style) || tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -367,16 +341,10 @@ export default class GEOResourceManifest {
 							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
-										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
-											tile;
+										tile = caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.XX?.tileSet?.find(i => i.style === tile.style) || tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -399,16 +367,10 @@ export default class GEOResourceManifest {
 							default:
 								switch (typeof tile.dataSet) {
 									case "undefined":
-										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
-											tile;
+										tile = caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.XX?.tileSet?.find(i => i.style === tile.style) || tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -471,16 +433,10 @@ export default class GEOResourceManifest {
 							case "Apple":
 								switch (typeof tile.dataSet) {
 									case "undefined":
-										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) ||
-											caches?.XX?.tileSet?.find(i => i.style === tile.style) ||
-											tile;
+										tile = caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.XX?.tileSet?.find(i => i.style === tile.style) || tile;
 										break;
 									case "number":
 										tile =
-											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet) ||
 											caches?.XX?.tileSet?.find(i => i.style === tile.style && i.dataSet === tile.dataSet) ||
@@ -508,7 +464,7 @@ export default class GEOResourceManifest {
 					case "VECTOR_ROAD_SELECTION": // 87 道路选区?
 					case "VECTOR_REGION_METADATA": // 88 区域元数据?
 						Console.info(`TEST style: ${tile?.style}`);
-						tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
+						tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
 						Console.info(`TEST baseURL: ${tile?.baseURL}`);
 						break;
 					*/
@@ -533,7 +489,7 @@ export default class GEOResourceManifest {
 						/*
                         switch (countryCode) {
                             case "CN":
-                                tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
+                                tile = caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.size === tile.size && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.scale === tile.scale && i.dataSet === tile.dataSet)) || caches?.XX?.tileSet?.find(i => (i.style === tile.style && i.dataSet === tile.dataSet)) || tile;
                                 break;
                             case "KR":
                             default:
