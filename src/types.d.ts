@@ -108,6 +108,21 @@ export interface Settings {
          */
         Earth?: 'AUTO' | 'AutoNavi' | 'Apple';
     /**
+         * [瓦片数据集] 道路图像与四处看看
+         *
+         * 此选项影响卫星视图下的道路图像与四处看看可用路段。
+         *
+         * @remarks
+         *
+         * Possible values:
+         * - `'AUTO'` - 🇺🇳自动（随[动态配置]版本自动选择）
+         * - `'CN'` - 🇨🇳中国（🇨🇳:卫星视图道路正确 | 🇺🇳:无四处看看）
+         * - `'XX'` - Apple（🇨🇳:卫星视图道路偏移 | 🇺🇳:有四处看看）
+         *
+         * @defaultValue "AUTO"
+         */
+        Roads?: 'AUTO' | 'CN' | 'XX';
+    /**
          * [瓦片数据集] 卫星图像
          *
          * 此选项影响所列位图、影像与模型数据。

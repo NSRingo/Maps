@@ -429,14 +429,14 @@ export default class GEOResourceManifest {
 						Console.debug(`SPR tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
 					case "VECTOR_SPR_ROADS": // 66 (卫星图下的道路网格和四处看看可用性)
-						Console.info(`Munin style: ${tile?.style}`);
-						switch (settings.TileSet.Munin) {
+						Console.info(`Roads style: ${tile?.style}`);
+						switch (settings.TileSet.Roads) {
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
 								break;
-							case "HYBRID":
-							case "XX":
 							default:
+							case "XX":
+							case "HYBRID":
 								switch (typeof tile.dataSet) {
 									case "undefined":
 										tile =
@@ -457,8 +457,8 @@ export default class GEOResourceManifest {
 								}
 								break;
 						}
-						Console.info(`Munin baseURL: ${tile?.baseURL}`);
-						Console.debug(`Munin tile: ${JSON.stringify(tile, null, 2)}`);
+						Console.info(`Roads baseURL: ${tile?.baseURL}`);
+						Console.debug(`Roads tile: ${JSON.stringify(tile, null, 2)}`);
 						break;
 					case "VECTOR_SPR_STANDARD": // 67 (影响 1-6 级视图下的行政区域名称与资料显示版本)
 						Console.info(`Earth style: ${tile?.style}`);

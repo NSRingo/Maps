@@ -17,12 +17,13 @@ export default {
 			},
 			TileSet: {
 				Earth: "AUTO",
+				Flyover: "HYBRID",
 				Map: "CN",
+				Munin: "HYBRID",
+				POI: "CN",
+				Roads: "AUTO",
 				Satellite: "HYBRID",
 				Traffic: "CN",
-				POI: "CN",
-				Flyover: "HYBRID",
-				Munin: "HYBRID",
 			},
 			GeoManifest: {
 				Dynamic: {
