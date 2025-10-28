@@ -125,19 +125,18 @@ export interface Settings {
     /**
          * [瓦片数据集] 卫星图像
          *
-         * 此选项影响所列位图、影像与模型数据。
+         * 此选项影响 2D 卫星图像的版本。
          *
          * @remarks
          *
          * Possible values:
          * - `'AUTO'` - 🇺🇳自动（随[动态配置]版本自动选择）
-         * - `'HYBRID'` - 混合（🇨🇳:2D较新 | 🇺🇳:主要城市3D）
-         * - `'CN'` - 🇨🇳中国四维（🇨🇳:2D较新 | 🇺🇳:🈚️）
-         * - `'XX'` - 🇺🇳DigitalGlobe（🇨🇳:2D较旧 | 🇺🇳:2D+主要城市3D）
+         * - `'CN'` - 🇨🇳中国四维（仅🇨🇳）
+         * - `'XX'` - 🇺🇳DigitalGlobe（全球，但🇨🇳较旧）
          *
-         * @defaultValue "HYBRID"
+         * @defaultValue "AUTO"
          */
-        Satellite?: 'AUTO' | 'HYBRID' | 'CN' | 'XX';
+        Satellite?: 'AUTO' | 'CN' | 'XX';
 };
     /**
      * [调试] 日志等级
