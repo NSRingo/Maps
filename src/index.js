@@ -13,7 +13,7 @@ export default new Hono().all("/:rest{.*}", async c => {
         url: url.toString(),
         method: c.req.method,
         headers: c.req.header(),
-        body: ["GET", "HEAD"].includes(c.req.method) ? undefined : await c.req.arrayBuffer(),
+        body: ["GET", "HEAD"].includes(c.req.method) ? undefined : new Uint8Array(await c.req.arrayBuffer()),
     };
     Object.assign(globalThis, await Request($request));
     if ($response) return c.body($response.body);

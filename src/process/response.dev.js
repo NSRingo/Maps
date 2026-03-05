@@ -57,7 +57,7 @@ export async function Response($request, $response) {
 					BigInt.prototype.toJSON = function () {
 						return this.toString();
 					};
-					body = XML.parse($response.body);
+					body = XML.parse($app === "Node.js" ? new TextDecoder().decode($response.body ?? new Uint8Array()) : $response.body);
 					Console.debug(`body: ${JSON.stringify(body)}`);
 					// 路径判断
 					switch (url.pathname) {
@@ -126,7 +126,7 @@ export async function Response($request, $response) {
 			break;
 		case "text/json":
 		case "application/json":
-			body = JSON.parse($response.body ?? "{}");
+            body = $app === "Node.js" ? new TextDecoder().decode($response.body ?? new Uint8Array()) : JSON.parse($response.body ?? "{}");
 			Console.debug(`body: ${JSON.stringify(body)}`);
 			$response.body = JSON.stringify(body);
 			break;
