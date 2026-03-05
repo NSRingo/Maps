@@ -47,7 +47,7 @@
 		"node-polyfill-webpack-plugin": "^4.1.0"
 	},
 	"dependencies": {
-		"@biomejs/biome": "^2.4.5",
+		"@biomejs/biome": "^2.1.4",
 		"@nsnanocat/util": "^2.1.7",
 		"@protobuf-ts/runtime": "^2.11.1",
 		"fetch-cookie": "^3.2.0",
