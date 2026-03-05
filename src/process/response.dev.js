@@ -126,7 +126,7 @@ export async function Response($request, $response) {
 			break;
 		case "text/json":
 		case "application/json":
-            body = JSON.parse($app === "Node.js" ? new TextDecoder().decode($response.body ?? new Uint8Array()) : $response.body ?? "{}");
+            body = JSON.parse($app === "Node.js" ? new TextDecoder().decode($response.body ?? new Uint8Array()) : ($response.body ?? "{}"));
 			Console.debug(`body: ${JSON.stringify(body)}`);
 			$response.body = JSON.stringify(body);
 			break;
