@@ -102,6 +102,17 @@ export async function Request($request) {
                         case "/config/announcements":
                             switch (Settings?.Config?.Announcements?.Environment) {
                                 case "AUTO":
+                                    /*
+                                    switch (Caches?.pep?.gcc) {
+                                        default:
+                                            url.searchParams.set("environment", "prod");
+                                            break;
+                                        case "CN":
+                                        case undefined:
+                                            url.searchParams.set("environment", "prod-cn");
+                                            break;
+                                    };
+                                    */
                                     break;
                                 case "CN":
                                 default:

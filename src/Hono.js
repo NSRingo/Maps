@@ -3,8 +3,8 @@ import { Response } from "./process/Response.js";
 import { Request } from "./process/Request.js";
 /***************** Processing *****************/
 export default new Hono().all("/:rest{.*}", async c => {
-	const url = new URL(c.req.url);
-	const [host, ...path] = c.req.param("rest").split("/");
+    const url = new URL(c.req.url);
+    const [host, ...path] = c.req.param("rest").split("/");
     url.protocol = "https:";
     url.hostname = host;
     url.port = "443";
@@ -15,7 +15,7 @@ export default new Hono().all("/:rest{.*}", async c => {
         headers: c.req.header(),
         body: ["GET", "HEAD"].includes(c.req.method) ? undefined : new Uint8Array(await c.req.arrayBuffer()),
     };
-    ({ $request , $response } = await Request($request));
+    ({ $request, $response } = await Request($request));
     if ($response) return c.body($response.body);
     globalThis.$response = await fetch($request.url, $request).then(async r => ({
         status: r.status,
