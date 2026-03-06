@@ -8,7 +8,7 @@ export default class GEOResourceManifest {
 		newRequest.url = newRequest.url.toString();
 		newRequest["binary-mode"] = true;
 		const response = await fetch(newRequest);
-		const rawBody = $app === "Quantumult X" ? new Uint8Array(response.bodyBytes ?? []) : (response.body ?? new Uint8Array());
+		const rawBody = response.bodyBytes ? new Uint8Array(response.bodyBytes) : response.body ?? new Uint8Array();
 		Console.log("✅ Download ResourceManifest");
 		return { ETag: response.headers?.Etag ?? response.headers?.etag, body: rawBody };
 	}
