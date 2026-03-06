@@ -225,5 +225,5 @@ export async function Response($request, $response) {
 			break;
 		}
 	}
-    return { $request, $response };
+    return $response;
 }
