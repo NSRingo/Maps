@@ -1,6 +1,7 @@
 import { $app, Console, done, Lodash as _ } from "@nsnanocat/util";
 import { Request } from "./process/Request.js";
 /***************** Processing *****************/
+let $response;
 !(async () => {
     ({ $request, $response } = await Request($request));
 })()

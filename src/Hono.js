@@ -9,15 +9,16 @@ export default new Hono().all("/:rest{.*}", async c => {
     url.hostname = host;
     url.port = "443";
     url.pathname = path.join("/");
-    globalThis.$request = {
+    let $request = {
         url: url.toString(),
         method: c.req.method,
         headers: c.req.header(),
         body: ["GET", "HEAD"].includes(c.req.method) ? undefined : new Uint8Array(await c.req.arrayBuffer()),
     };
+    let $response;
     ({ $request, $response } = await Request($request));
     if ($response) return c.body($response.body);
-    globalThis.$response = await fetch($request.url, $request).then(async r => ({
+    $response = await fetch($request.url, $request).then(async r => ({
         status: r.status,
         headers: Object.fromEntries(new Headers(r.headers).entries()),
         body: new Uint8Array(await r.arrayBuffer()),
