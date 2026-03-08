@@ -1,9 +1,8 @@
-name: Workers Deploy
+name: Workers Dev
 on:
   push:
     branches:
-      # - dev
-      - action-dev
+      - dev
 
 permissions:
   actions: read
