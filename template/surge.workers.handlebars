@@ -1,0 +1,26 @@
+#!name = {{@package 'displayName'}}
+#!desc = {{inline (@package 'description')}}
+#!openUrl = {{@package 'openUrl'}}
+#!author = {{@package 'contributors'}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!category = {{@package 'organizationName'}}
+#!date = {{now "yyyy-MM-dd HH:mm:ss"}}
+#!version = {{@package 'version'}}
+
+[Rule]
+# 🗺️ Amap
+DOMAIN-SUFFIX,is.autonavi.com,DIRECT
+# 🗺️ Maps
+DOMAIN,gspe11-2-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe12-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe19-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe19-2-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe79-cn-ssl.ls.apple.com,DIRECT
+
+[URL Rewrite]
+^https?:\/\/configuration\.ls\.apple\.com\/(config\/defaults) https://weatherkit.trigram-masques-8r.workers.dev/configuration.ls.apple.com/$1 header
+^https?:\/\/gspe35-ssl\.ls\.apple\.com\/(config\/announcements|geo_manifest\/dynamic\/config) https://weatherkit.trigram-masques-8r.workers.dev/gspe35-ssl.ls.apple.com/$1 header
+
+[MITM]
+hostname = %APPEND% configuration.ls.apple.com, gspe35-ssl.ls.apple.com

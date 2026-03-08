@@ -1,4 +1,4 @@
-name: Workers Deploy
+name: Workers Release
 on:
   push:
     # Sequence of patterns matched against refs/tags
@@ -24,3 +24,10 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "4.71.0"
+      - name: Set up Node.js
+        uses: actions/setup-node@main
+        with:
+          node-version: 'latest'
+          cache: 'npm'
+      - name: Generate modules
+        run: npm run build:args:workers
