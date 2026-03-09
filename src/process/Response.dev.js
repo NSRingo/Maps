@@ -1,4 +1,4 @@
-import { $app, Console, Lodash as _ } from "@nsnanocat/util";
+import { Console, Lodash as _ } from "@nsnanocat/util";
 import XML from "../XML/XML.mjs";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
@@ -137,7 +137,7 @@ export async function Response($request, $response) {
         case "application/grpc+proto":
         case "application/octet-stream": {
             //Console.debug(`$response: ${JSON.stringify($response, null, 2)}`);
-            let rawBody = $app === "Quantumult X" ? new Uint8Array($response.bodyBytes ?? []) : ($response.body ?? new Uint8Array());
+            let rawBody = $response.bodyBytes ? new Uint8Array($response.bodyBytes) : $response.body ?? new Uint8Array();
             //Console.debug(`isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`);
             switch (FORMAT) {
                 case "application/protobuf":

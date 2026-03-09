@@ -1,4 +1,4 @@
-import { $app, Console, Lodash as _ } from "@nsnanocat/util";
+import { Console, Lodash as _ } from "@nsnanocat/util";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
 /***************** Processing *****************/
@@ -74,7 +74,7 @@ export async function Request($request) {
                 case "application/grpc+proto":
                 case "application/octet-stream": {
                     //Console.debug(`$request: ${JSON.stringify($request, null, 2)}`);
-                    let rawBody = $app === "Quantumult X" ? new Uint8Array($request.bodyBytes ?? []) : ($request.body ?? new Uint8Array());
+                    let rawBody = $request.bodyBytes ? new Uint8Array($request.bodyBytes) : $request.body ?? new Uint8Array();
                     //Console.debug(`isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody, null, 2)}`);
                     // 写入二进制数据
                     $request.body = rawBody;
