@@ -1,0 +1,45 @@
+name: Node Build
+description: Shared Node.js setup and build steps
+
+inputs:
+  package-token:
+    description: Token used for npm install
+    required: true
+  node-version:
+    description: Node.js version
+    default: latest
+    required: false
+  install-command:
+    description: Command used to install dependencies
+    default: npm install
+    required: false
+  build-command:
+    description: Optional build command
+    default: ""
+    required: false
+  extra-command:
+    description: Optional command executed after the build command
+    default: ""
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: npm
+    - name: Install Dependencies
+      run: ${{ inputs.install-command }}
+      shell: bash
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.package-token }}
+    - name: Run Build Command
+      if: ${{ inputs.build-command != '' }}
+      run: ${{ inputs.build-command }}
+      shell: bash
+    - name: Run Extra Command
+      if: ${{ inputs.extra-command != '' }}
+      run: ${{ inputs.extra-command }}
+      shell: bash

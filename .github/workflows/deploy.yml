@@ -17,18 +17,18 @@ jobs:
     needs: debug
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@master
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
         with:
           name: artifact
-      - name: Deploy
+      - name: Deploy Request Bundle to Gist
         uses: exuanbo/actions-deploy-gist@main
         with:
           token: ${{ secrets.GIST_TOKEN }}
           gist_id: b7524906119fa250bc933cc9a08e939a
           gist_description: " iRingo: 🗺️ Maps β"
           file_path: dist/request.bundle.js
-      - name: Deploy
+      - name: Deploy Response Bundle to Gist
         uses: exuanbo/actions-deploy-gist@main
         with:
           token: ${{ secrets.GIST_TOKEN }}

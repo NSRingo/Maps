@@ -17,11 +17,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@master
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
         with:
           name: artifact
-      - name: Publish Release
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           body_path: CHANGELOG.md

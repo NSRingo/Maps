@@ -9,16 +9,20 @@ permissions:
   contents: read
 
 jobs:
-  deploy-workers:
+  deploy-dev-workers:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           token: ${{ secrets.SUBMODULE_TOKEN }}
           ref: dev
-      - name: Deploy Workers
+      - name: Install Node Dependencies
+        uses: ./.github/actions/node-build
+        with:
+          package-token: ${{ secrets.PACKAGE_TOKEN }}
+      - name: Deploy Cloudflare Worker
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
