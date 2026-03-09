@@ -1,4 +1,4 @@
-import { $app, Console, Lodash as _ } from "@nsnanocat/util";
+import { Console, Lodash as _ } from "@nsnanocat/util";
 import XML from "../XML/XML.mjs";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
@@ -51,7 +51,7 @@ export async function Response($request, $response) {
                     BigInt.prototype.toJSON = function () {
                         return this.toString();
                     };
-                    body = XML.parse($app === "Node.js" ? new TextDecoder().decode($response.body ?? new Uint8Array()) : $response.body);
+                    body = XML.parse($response.body);
                     // 路径判断
                     switch (url.pathname) {
                         case "/config/defaults": {
@@ -94,7 +94,7 @@ export async function Response($request, $response) {
             break;
         case "text/json":
         case "application/json":
-            body = JSON.parse($app === "Node.js" ? new TextDecoder().decode($response.body ?? new Uint8Array()) : ($response.body ?? "{}"));
+            body = JSON.parse($response.body);
             Console.debug(`body: ${JSON.stringify(body)}`);
             $response.body = JSON.stringify(body);
             break;
@@ -104,7 +104,7 @@ export async function Response($request, $response) {
         case "application/grpc":
         case "application/grpc+proto":
         case "application/octet-stream": {
-            let rawBody = $app === "Quantumult X" ? new Uint8Array($response.bodyBytes ?? []) : ($response.body ?? new Uint8Array());
+            let rawBody = $response.bodyBytes ? new Uint8Array($response.bodyBytes) : $response.body ?? new Uint8Array();
             switch (FORMAT) {
                 case "application/protobuf":
                 case "application/x-protobuf":
