@@ -1,8 +1,6 @@
 name: Workers Dev
 on:
-  push:
-    branches:
-      - dev
+  workflow_dispatch:
 
 permissions:
   actions: read
