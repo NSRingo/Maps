@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { fetch } from "@nsnanocat/util";
-import { Response } from "./process/Response.js";
-import { Request } from "./process/Request.js";
+import { Response } from "./process/Response.mjs";
+import { Request } from "./process/Request.mjs";
 /***************** Processing *****************/
 export default new Hono().all("/:rest{.*}", async c => {
 	const url = new URL(c.req.url);
