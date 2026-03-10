@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { fetch } from "@nsnanocat/util";
+//import { fetch } from "@nsnanocat/util";
 import { Response } from "./process/Response.mjs";
 import { Request } from "./process/Request.mjs";
 /***************** Processing *****************/
@@ -35,17 +35,23 @@ export default new Hono().all("/:rest{.*}", async c => {
 	};
 	let $response;
 	({ $request, $response } = await Request($request));
-	if ($response) {
-		Object.keys($response.headers).map(k => c.header(k, $response.headers[k]));
-		return c.body($response.body);
+	switch (typeof $response) {
+		case "object": // 有构造回复数据，返回构造的回复数据
+            console.debug("finally", `echo $response: ${JSON.stringify($response, null, 2)}`);
+			Object.keys($response.headers).map(k => c.header(k, $response.headers[k]));
+			return c.body($response.body);
+		case "undefined": // 无构造回复数据，发送修改的请求数据
+            console.debug("finally", `$request: ${JSON.stringify($request, null, 2)}`);
+			$response = await fetch($request);
+			$response.headers = $response.headers()
+			$response.bodyBytes = await $response.arrayBuffer().catch(error => {
+				console.info(error);
+				return undefined;
+			});
+			$response = await Response($request, $response);
+			return c.body($response.body);
+		default:
+			console.error(`不合法的 $response 类型: ${typeof $response}`);
+			break;
 	}
-	$response = await fetch($request);
-	delete $response.headers["content-length"];
-
-	/* todo */
-	// globalThis.$arguments = url.searchParams.get("Weather_Provider");
-
-	$response = await Response($request, $response);
-	Object.keys($response.headers).map(k => c.header(k, $response.headers[k]));
-	return c.body($response.body);
 });
