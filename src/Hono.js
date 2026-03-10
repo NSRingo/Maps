@@ -6,9 +6,11 @@ import { Request } from "./process/Request.mjs";
 export default new Hono().all("/:rest{.*}", async c => {
 	const url = new URL(c.req.url);
 	switch (true) {
+		case url.hostname.startsWith("configuration-ls."):
 		case url.hostname.startsWith("configuration.ls."):
 			url.hostname = "configuration.ls.apple.com";
 			break;
+		case url.hostname.startsWith("gspe35-ssl-ls."):
 		case url.hostname.startsWith("gspe35-ssl.ls."):
 			url.hostname = "gspe35-ssl.ls.apple.com";
 			break;
