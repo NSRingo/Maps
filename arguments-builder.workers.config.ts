@@ -15,14 +15,13 @@ export default defineConfig({
 		},
 		customItems: [
 			{
+				path: "./dist/iRingo.Maps.Workers.srmodule",
+				template: "./template/shadowrocket.workers.handlebars",
+			},
+			{
 				path: "./dist/iRingo.Maps.Workers.stoverride",
 				template: "./template/stash.workers.handlebars",
 			},
-		],
-		dts: { isExported: true, path: "./src/types.d.ts" },
-		boxjsSettings: {
-			path: "./template/boxjs.settings.workers.json",
-			scope: "@iRingo.Maps.Settings",
-		},
+		]
 	},
 });
