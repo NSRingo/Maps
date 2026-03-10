@@ -29,5 +29,9 @@ http:
     - "configuration.ls.apple.com"
     - "gspe35-ssl.ls.apple.com"
   url-rewrite:
-    - ^https?:\/\/configuration\.ls\.apple\.com\/(config\/defaults) https://weatherkit.trigram-masques-8r.workers.dev/configuration.ls.apple.com/$1 transparent
-    - ^https?:\/\/gspe35-ssl\.ls\.apple\.com\/(config\/announcements|geo_manifest\/dynamic\/config) https://weatherkit.trigram-masques-8r.workers.dev/gspe35-ssl.ls.apple.com/$1 transparent
+    # 🗺️ Network Defaults
+    - ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults https://configuration-ls.nanocat.cloud/config/defaults transparent
+    # 🗺️ Announcements
+    - ^https?:\/\/gspe35-ssl\.ls\.apple\.com\/config\/announcements https://gspe35-ssl-ls.nanocat.cloud/config/announcements transparent
+    # 🗺️ Resource Manifest
+    - ^https?:\/\/gspe35-ssl\.ls\.apple\.com\/geo_manifest\/dynamic\/config https://gspe35-ssl-ls.nanocat.cloud/geo_manifest/dynamic/config transparent

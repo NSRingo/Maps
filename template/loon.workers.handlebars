@@ -21,8 +21,12 @@ DOMAIN,gspe19-2-cn-ssl.ls.apple.com,DIRECT
 DOMAIN,gspe79-cn-ssl.ls.apple.com,DIRECT
 
 [URL Rewrite]
-^https?:\/\/configuration\.ls\.apple\.com\/(config\/defaults) https://weatherkit.trigram-masques-8r.workers.dev/configuration.ls.apple.com/$1 header
-^https?:\/\/gspe35-ssl\.ls\.apple\.com\/(config\/announcements|geo_manifest\/dynamic\/config) https://weatherkit.trigram-masques-8r.workers.dev/gspe35-ssl.ls.apple.com/$1 header
+# 🗺️ Network Defaults
+^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults https://configuration-ls.nanocat.cloud/config/defaults header
+# 🗺️ Announcements
+^https?:\/\/gspe35-ssl\.ls\.apple\.com\/config\/announcements https://gspe35-ssl-ls.nanocat.cloud/config/announcements header
+# 🗺️ Resource Manifest
+^https?:\/\/gspe35-ssl\.ls\.apple\.com\/geo_manifest\/dynamic\/config https://gspe35-ssl-ls.nanocat.cloud/geo_manifest/dynamic/config header
 
 [MITM]
 hostname = configuration.ls.apple.com, gspe35-ssl.ls.apple.com
