@@ -3,7 +3,6 @@ desc: |-
   {{#each (split (@package 'description') "\n")}}
   {{{this}}}
   {{/each}}
-openUrl: "{{@package 'openUrl'}}"
 author: |-
   {{#each (@package 'contributors')}}
   {{this}}
@@ -12,7 +11,6 @@ homepage: "{{@package 'homepage'}}"
 icon: "{{@package 'icon'}}"
 category: "{{@package 'organizationName'}}"
 date: "{{now "yyyy-MM-dd HH:mm:ss"}}"
-version: "{{@package 'version'}}"
 
 rules:
   # 🗺️ Amap
