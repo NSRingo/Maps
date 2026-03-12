@@ -35,5 +35,4 @@ jobs:
           name: artifact
           path: |
             CHANGELOG.md
-            modules
             dist

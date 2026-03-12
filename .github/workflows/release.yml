@@ -28,6 +28,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             rulesets/*
-            modules/*
             dist/*
           make_latest: "true"
