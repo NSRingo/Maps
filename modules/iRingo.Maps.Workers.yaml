@@ -1,0 +1,39 @@
+name: ' iRingo: 🗺️ Maps (Rewrite)'
+description: 自定义 Maps app\n添加国际版功能\n自定义服务版本
+author: VirgilClyne[https://github.com/VirgilClyne]
+homepage: https://NSRingo.github.io/guide/GeoServices/maps
+icon: https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png
+rules:
+- domain_suffix:
+    match: is.autonavi.com
+    policy: DIRECT
+- domain:
+    match: gspe11-2-cn-ssl.ls.apple.com
+    policy: DIRECT
+- domain:
+    match: gspe12-cn-ssl.ls.apple.com
+    policy: DIRECT
+- domain:
+    match: gspe19-cn-ssl.ls.apple.com
+    policy: DIRECT
+- domain:
+    match: gspe19-2-cn-ssl.ls.apple.com
+    policy: DIRECT
+- domain:
+    match: gspe79-cn-ssl.ls.apple.com
+    policy: DIRECT
+url_rewrites:
+- match: ^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults
+  location: https://configuration-ls.nanocat.cloud/config/defaults
+  status_code: 307
+- match: ^https?:\/\/gspe35-ssl\.ls\.apple\.com\/config\/announcements
+  location: https://gspe35-ssl-ls.nanocat.cloud/config/announcements
+  status_code: 307
+- match: ^https?:\/\/gspe35-ssl\.ls\.apple\.com\/geo_manifest\/dynamic\/config
+  location: https://gspe35-ssl-ls.nanocat.cloud/geo_manifest/dynamic/config
+  status_code: 307
+mitm:
+  hostnames:
+    includes:
+    - configuration.ls.apple.com
+    - gspe35-ssl.ls.apple.com

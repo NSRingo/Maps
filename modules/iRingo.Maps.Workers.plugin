@@ -1,0 +1,30 @@
+#!name =  iRingo: 🗺️ Maps (Rewrite)
+#!desc = 自定义 Maps app\n添加国际版功能\n自定义服务版本
+#!author = VirgilClyne[https://github.com/VirgilClyne]
+#!homepage = https://NSRingo.github.io/guide/GeoServices/maps
+#!icon = https://developer.apple.com/assets/elements/icons/maps/maps-128x128.png
+#!tag =  iRingo
+#!system = iOS,iPadOS,macOS
+#!date = 2026-03-12 14:50:22
+#!system_version = 15
+
+[Rule]
+# 🗺️ Amap
+DOMAIN-SUFFIX,is.autonavi.com,DIRECT
+# 🗺️ Maps
+DOMAIN,gspe11-2-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe12-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe19-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe19-2-cn-ssl.ls.apple.com,DIRECT
+DOMAIN,gspe79-cn-ssl.ls.apple.com,DIRECT
+
+[URL Rewrite]
+# 🗺️ Network Defaults
+^https?:\/\/configuration\.ls\.apple\.com\/config\/defaults https://configuration-ls.nanocat.cloud/config/defaults header
+# 🗺️ Announcements
+^https?:\/\/gspe35-ssl\.ls\.apple\.com\/config\/announcements https://gspe35-ssl-ls.nanocat.cloud/config/announcements header
+# 🗺️ Resource Manifest
+^https?:\/\/gspe35-ssl\.ls\.apple\.com\/geo_manifest\/dynamic\/config https://gspe35-ssl-ls.nanocat.cloud/geo_manifest/dynamic/config header
+
+[MITM]
+hostname = configuration.ls.apple.com, gspe35-ssl.ls.apple.com
