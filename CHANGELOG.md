@@ -1,15 +1,14 @@
 ### 🆕 New Features
-  * 新增基于 `Workers` 的 `Maps (Rewrite)` 新模块，面向 `Loon`、`Surge`、`Stash`、`Shadowrocket`、`Egern` 提供新的 Rewrite 版本配置。
+  * none
 
 ### 🛠️ Bug Fixes
-  * 修正 `卫星图像(Satellite)` 版本选项的文案描述，明确该设置仅影响 `2D` 卫星图像版本，并减少 `HYBRID` 表述歧义。
+  * 新增 `Storage` 配置类型选项，支持在 `$argument`、`PersistentStore (BoxJs)` 与 `database` 默认配置之间切换，并补充对应说明文案。
 
 ### 🔣 Dependencies
-  * 新增基础依赖：`hono`、`fetch-cookie`、`@biomejs/biome`。
-  * 更新开发与基础依赖：`@rspack/cli`、`@rspack/core` 升级至 `^1.7.7`，`@nsnanocat/util` 升级至 `^2.2.3`。
+  * none
 
 ### ‼️ Breaking Changes
   * none
 
 ### 🔄 Other Changes
-  * 统一 `Workers` 模块命名，配置名称追加 `(Rewrite)` 后缀，提升不同版本的辨识度。
+  * 调整构建、草稿发布与正式发布工作流，不再打包和上传 `modules` 目录，仅保留 `rulesets` 与 `dist` 等产物。
