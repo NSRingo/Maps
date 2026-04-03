@@ -167,12 +167,16 @@ export async function Response($request, $response, env) {
                                             };
                                             */
                                     const CountryCode = url.searchParams.get("country_code");
+                                    const cnURL = new URL(url.toString());
+										cnURL.searchParams.set("country_code", "CN");
+                                    const xxURL = new URL(url.toString());
+										xxURL.searchParams.set("country_code", "US");
                                     const caches = {};
                                     let isReady = true;
                                     switch (CountryCode) {
                                         case "CN": {
                                             caches.CN = body;
-                                            caches.XX = GEOResourceManifest.decodeCache(Caches, "XX");
+											caches.XX = GEOResourceManifest.decodeCache(Caches, xxURL.search);
                                             if (!caches.XX) {
                                                 Console.warn(`Missing cache: XX`);
                                                 isReady = false;
@@ -181,8 +185,8 @@ export async function Response($request, $response, env) {
                                         }
                                         case "KR": {
                                             caches.KR = body;
-                                            caches.CN = GEOResourceManifest.decodeCache(Caches, "CN");
-                                            caches.XX = GEOResourceManifest.decodeCache(Caches, "XX");
+											caches.CN = GEOResourceManifest.decodeCache(Caches, cnURL.search);
+											caches.XX = GEOResourceManifest.decodeCache(Caches, xxURL.search);
                                             if (!caches.CN || !caches.XX) {
                                                 Console.warn(`Missing cache: ${!caches.CN ? "CN" : "XX"}`);
                                                 isReady = false;
@@ -191,7 +195,7 @@ export async function Response($request, $response, env) {
                                         }
                                         default: {
                                             caches.XX = body;
-                                            caches.CN = GEOResourceManifest.decodeCache(Caches, "CN");
+											caches.CN = GEOResourceManifest.decodeCache(Caches, cnURL.search);
                                             if (!caches.CN) {
                                                 Console.warn(`Missing cache: CN`);
                                                 isReady = false;

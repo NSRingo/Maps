@@ -13,7 +13,7 @@ export default class GEOResourceManifest {
 		Console.log("☑️ Download");
 		const newRequest = { ...request };
 		newRequest.url = new URL(newRequest.url);
-		newRequest.url.searchParams.set("country_code", countryCode);
+		newRequest.url.searchParams.set("country_code", countryCode === "XX" ? "US" : countryCode);
 		newRequest.url = newRequest.url.toString();
 		newRequest["binary-mode"] = true;
 		const response = await fetch(newRequest);
@@ -26,12 +26,16 @@ export default class GEOResourceManifest {
 	 * 读取资源清单缓存。
 	 * Read resource manifest cache.
 	 * @param {object} caches 缓存对象 / Cache object.
-	 * @param {string} countryCode 国家代码 / Country code.
+	 * @param {string} queryString 查询字符串（包含前导问号） / Query string with leading question mark.
 	 * @returns {{eTag?: string, base64?: string}|undefined} 缓存条目 / Cache entry.
 	 */
-	static getCache(caches = {}, countryCode = "CN") {
+	static getCache(caches = {}, queryString = "") {
 		Console.log("☑️ Get Cache");
-		const cache = caches?.GeoManifest?.[countryCode];
+		if (!queryString) {
+			Console.warn("❎ Get Cache", "Missing query string");
+			return undefined;
+		}
+		const cache = caches?.GeoManifest?.[queryString];
 		switch (typeof cache?.base64) {
 			case "string":
 				if (cache.base64) {
@@ -48,21 +52,25 @@ export default class GEOResourceManifest {
 	 * 写入资源清单缓存。
 	 * Write resource manifest cache.
 	 * @param {object} caches 缓存对象 / Cache object.
-	 * @param {string} countryCode 国家代码 / Country code.
+	 * @param {string} queryString 查询字符串（包含前导问号） / Query string with leading question mark.
 	 * @param {string} eTag 实体标签 / Entity tag.
 	 * @param {Uint8Array|ArrayBuffer} rawBody 原始二进制 / Raw binary body.
 	 * @param {object} env Worker 环境对象 / Worker environment bindings.
 	 * @returns {Promise<boolean>} 是否写入成功 / Whether cache is written.
 	 */
-	static async setCache(caches = {}, countryCode = "CN", eTag = "", rawBody = new Uint8Array(), env) {
+	static async setCache(caches = {}, queryString = "", eTag = "", rawBody = new Uint8Array(), env) {
 		Console.log("☑️ Set Cache");
+		if (!queryString) {
+			Console.warn("❎ Set Cache", "Missing query string");
+			return false;
+		}
 		if (!eTag) {
-			Console.warn("❎ Set Cache", `Missing eTag: ${countryCode}`);
+			Console.warn("❎ Set Cache", `Missing eTag: ${queryString}`);
 			return false;
 		}
 		rawBody = rawBody instanceof Uint8Array ? rawBody : new Uint8Array(rawBody ?? []);
 		if (!rawBody.length) {
-			Console.warn("❎ Set Cache", `Empty body: ${countryCode}`);
+			Console.warn("❎ Set Cache", `Empty body: ${queryString}`);
 			return false;
 		}
 		let base64 = "";
@@ -87,15 +95,15 @@ export default class GEOResourceManifest {
 			}
 		} catch (error) {
 			Console.error(error);
-			Console.warn("❎ Set Cache", `Encode failed: ${countryCode}`);
+			Console.warn("❎ Set Cache", `Encode failed: ${queryString}`);
 			return false;
 		}
 		if (!base64) {
-			Console.warn("❎ Set Cache", `Empty base64: ${countryCode}`);
+			Console.warn("❎ Set Cache", `Empty base64: ${queryString}`);
 			return false;
 		}
 		if (typeof caches.GeoManifest !== "object" || caches.GeoManifest === null) caches.GeoManifest = {};
-		caches.GeoManifest[countryCode] = { eTag, base64 };
+		caches.GeoManifest[queryString] = { eTag, base64 };
 		const result = env?.PersistentStore
 			? await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches.GeoManifest", caches.GeoManifest)
 			: PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
@@ -107,14 +115,14 @@ export default class GEOResourceManifest {
 	 * 解码资源清单缓存。
 	 * Decode resource manifest cache.
 	 * @param {object} caches 缓存对象 / Cache object.
-	 * @param {string} countryCode 国家代码 / Country code.
+	 * @param {string} queryString 查询字符串（包含前导问号） / Query string with leading question mark.
 	 * @returns {object|undefined} 解码结果 / Decoded manifest.
 	 */
-	static decodeCache(caches = {}, countryCode = "CN") {
+	static decodeCache(caches = {}, queryString = "") {
 		Console.log("☑️ Decode Cache");
-		const cache = this.getCache(caches, countryCode);
+		const cache = GEOResourceManifest.getCache(caches, queryString);
 		if (!cache?.base64) {
-			Console.warn("❎ Decode Cache", `Missing cache: ${countryCode}`);
+			Console.warn("❎ Decode Cache", `Missing cache: ${queryString}`);
 			return undefined;
 		}
 		try {
@@ -133,7 +141,7 @@ export default class GEOResourceManifest {
 					throw new Error("Unsupported base64 decoder");
 			}
 			if (!rawBody?.length) {
-				Console.warn("❎ Decode Cache", `Empty body: ${countryCode}`);
+				Console.warn("❎ Decode Cache", `Empty body: ${queryString}`);
 				return undefined;
 			}
 			const body = GEOResourceManifestDownload.decode(rawBody);
@@ -141,7 +149,7 @@ export default class GEOResourceManifest {
 			return body;
 		} catch (error) {
 			Console.error(error);
-			Console.warn("❎ Decode Cache", `Decode failed: ${countryCode}`);
+			Console.warn("❎ Decode Cache", `Decode failed: ${queryString}`);
 			return undefined;
 		}
 	}
