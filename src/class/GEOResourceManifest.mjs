@@ -84,7 +84,7 @@ export default class GEOResourceManifest {
 					for (let index = 0; index < rawBody.length; index += 0x2000) {
 						const chunk = rawBody.subarray(index, index + 0x2000);
 						let binary = "";
-						for (let inner = 0; inner < chunk.length; inner++) binary += String.fromCharCode(chunk[inner]);
+						for (const byte of chunk) binary += String.fromCharCode(byte);
 						chunks.push(binary);
 					}
 					base64 = globalThis.btoa(chunks.join(""));
