@@ -2,13 +2,14 @@
   * none
 
 ### 🛠️ Bug Fixes
-  * 新增 `Storage` 配置类型选项，支持在 `$argument`、`PersistentStore (BoxJs)` 与 `database` 默认配置之间切换，并补充对应说明文案。
+  * 优化 `Geo Manifest` 资源清单缓存流程，补强下载、缓存校验与解码保护逻辑，提升资源清单刷新与回退时的稳定性。
+  * 改进不同地区 `Geo Manifest` 缓存的预热与复用逻辑，减少切换地区后资源清单异常或缓存失效的情况。
 
 ### 🔣 Dependencies
-  * none
+  * 更新 `@nsnanocat/util` 并引入 `@auraflare/shared`，改善 Worker 场景下的共享能力与缓存兼容性。
 
 ### ‼️ Breaking Changes
   * none
 
 ### 🔄 Other Changes
-  * 调整构建、草稿发布与正式发布工作流，不再打包和上传 `modules` 目录，仅保留 `rulesets` 与 `dist` 等产物。
+  * 优化自托管 Worker 的默认缓存绑定配置与运行时放置策略，改善持续运行场景下的缓存持久化表现。
