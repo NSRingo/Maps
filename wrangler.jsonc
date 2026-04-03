@@ -2,6 +2,12 @@
   "name": "maps",
   "main": "src/Hono.js",
   "compatibility_date": "2025-11-21",
+  "kv_namespaces": [
+    {
+      "binding": "PersistentStore",
+      "id": "c4303c6939174610b82f76dbf7c33895"
+    }
+  ],
   "observability": {
     "enabled": false,
     "head_sampling_rate": 1,
@@ -16,6 +22,9 @@
       "persist": true,
       "head_sampling_rate": 1
     }
+  },
+  "placement": {
+    "mode": "smart"
   },
   "compatibility_flags": [
     "nodejs_compat"

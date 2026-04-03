@@ -96,8 +96,8 @@ export default class GEOResourceManifest {
 		}
 		if (typeof caches.GeoManifest !== "object" || caches.GeoManifest === null) caches.GeoManifest = {};
 		caches.GeoManifest[countryCode] = { eTag, base64 };
-		const result = env?.Maps
-			? await new Storage({ env: { namespace: env.Maps } }).setItem("@iRingo.Maps.Caches.GeoManifest", caches.GeoManifest)
+		const result = env?.PersistentStore
+			? await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches.GeoManifest", caches.GeoManifest)
 			: PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
 		Console.log("✅ Set Cache");
 		return result;

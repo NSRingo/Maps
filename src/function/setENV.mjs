@@ -14,8 +14,8 @@ import { Console, Lodash as _ } from "@nsnanocat/util";
 export default async function setENV(name, platforms, database, env) {
 	Console.log("☑️ Set Environment Variables");
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
-	if (env?.Maps) {
-		const storage = new Storage({ env: { namespace: env.Maps } });
+	if (env?.PersistentStore) {
+		const storage = new Storage({ env: { namespace: env.PersistentStore } });
 		Caches.GeoManifest = await storage.getItem("@iRingo.Maps.Caches.GeoManifest", Caches.GeoManifest ?? {});
 	}
 	/***************** Settings *****************/
