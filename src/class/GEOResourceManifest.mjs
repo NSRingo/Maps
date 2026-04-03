@@ -1,4 +1,5 @@
-import { Console, fetch, Storage } from "@nsnanocat/util";
+import { KV as Storage } from "@auraflare/shared";
+import { Console, fetch, Storage as PersistentStorage } from "@nsnanocat/util";
 import GEOResourceManifestDownload from "./GEOResourceManifestDownload.mjs";
 export default class GEOResourceManifest {
 	/**
@@ -50,9 +51,10 @@ export default class GEOResourceManifest {
 	 * @param {string} countryCode 国家代码 / Country code.
 	 * @param {string} eTag 实体标签 / Entity tag.
 	 * @param {Uint8Array|ArrayBuffer} rawBody 原始二进制 / Raw binary body.
-	 * @returns {boolean} 是否写入成功 / Whether cache is written.
+	 * @param {object} env Worker 环境对象 / Worker environment bindings.
+	 * @returns {Promise<boolean>} 是否写入成功 / Whether cache is written.
 	 */
-	static setCache(caches = {}, countryCode = "CN", eTag = "", rawBody = new Uint8Array()) {
+	static async setCache(caches = {}, countryCode = "CN", eTag = "", rawBody = new Uint8Array(), env) {
 		Console.log("☑️ Set Cache");
 		if (!eTag) {
 			Console.warn("❎ Set Cache", `Missing eTag: ${countryCode}`);
@@ -94,7 +96,9 @@ export default class GEOResourceManifest {
 		}
 		if (typeof caches.GeoManifest !== "object" || caches.GeoManifest === null) caches.GeoManifest = {};
 		caches.GeoManifest[countryCode] = { eTag, base64 };
-		const result = Storage.setItem("@iRingo.Maps.Caches", caches);
+		const result = env?.Maps
+			? await new Storage({ env: { namespace: env.Maps } }).setItem("@iRingo.Maps.Caches.GeoManifest", caches.GeoManifest)
+			: PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
 		Console.log("✅ Set Cache");
 		return result;
 	}

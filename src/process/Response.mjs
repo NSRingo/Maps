@@ -5,7 +5,7 @@ import setENV from "../function/setENV.mjs";
 import GEOResourceManifest from "../class/GEOResourceManifest.mjs";
 import GEOResourceManifestDownload from "../class/GEOResourceManifestDownload.mjs";
 /***************** Processing *****************/
-export async function Response($request, $response) {
+export async function Response($request, $response, env) {
     // 解构URL
     const url = new URL($request.url);
     Console.info(`url: ${url.toJSON()}`);
@@ -22,7 +22,7 @@ export async function Response($request, $response) {
      * 设置
      * @type {{Settings: import('./types').Settings}}
      */
-    const { Settings, Caches, Configs } = setENV("iRingo", PLATFORM, database);
+    const { Settings, Caches, Configs } = await setENV("iRingo", PLATFORM, database, env);
     Console.logLevel = Settings.LogLevel;
     // 创建空数据
     let body = {};

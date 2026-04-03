@@ -34,7 +34,7 @@ export default new Hono().all("/:rest{.*}", async c => {
 		}),
 	};
 	let $response;
-	({ $request, $response } = await Request($request));
+	({ $request, $response } = await Request($request, c.env));
 	switch (typeof $response) {
 		case "object": // 有构造回复数据，返回构造的回复数据
             console.debug("finally", `echo $response: ${JSON.stringify($response, null, 2)}`);
@@ -48,7 +48,7 @@ export default new Hono().all("/:rest{.*}", async c => {
 				console.info(error);
 				return undefined;
 			});
-			$response = await Response($request, $response);
+			$response = await Response($request, $response, c.env);
 			return c.body($response.body);
 		default:
 			console.error(`不合法的 $response 类型: ${typeof $response}`);

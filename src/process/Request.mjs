@@ -3,7 +3,7 @@ import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
 import GEOResourceManifest from "../class/GEOResourceManifest.mjs";
 /***************** Processing *****************/
-export async function Request($request) {
+export async function Request($request, env) {
     // 构造回复数据
     let $response = undefined;
     // 解构URL
@@ -19,7 +19,7 @@ export async function Request($request) {
      * 设置
      * @type {{Settings: import('./types').Settings}}
      */
-    const { Settings, Caches, Configs } = setENV("iRingo", "Maps", database);
+    const { Settings, Caches, Configs } = await setENV("iRingo", "Maps", database, env);
     Console.logLevel = Settings.LogLevel;
     // 创建空数据
     let body = {};
@@ -145,7 +145,7 @@ export async function Request($request) {
                                         switch (response?.status) {
                                             case 200:
                                                 if (!response?.eTag || !response?.body?.length) Console.warn(`Skip cache update: ${cacheCountryCode}`);
-                                                else GEOResourceManifest.setCache(Caches, cacheCountryCode, response.eTag, response.body);
+                                                else await GEOResourceManifest.setCache(Caches, cacheCountryCode, response.eTag, response.body, env);
                                                 break;
                                             case 304:
                                                 Console.info(`Cache not modified: ${cacheCountryCode}`);
@@ -169,7 +169,7 @@ export async function Request($request) {
                                         switch (response?.status) {
                                             case 200:
                                                 if (!response?.eTag || !response?.body?.length) Console.warn(`Skip cache update: ${cacheCountryCode}`);
-                                                else GEOResourceManifest.setCache(Caches, cacheCountryCode, response.eTag, response.body);
+                                                else await GEOResourceManifest.setCache(Caches, cacheCountryCode, response.eTag, response.body, env);
                                                 break;
                                             case 304:
                                                 Console.info(`Cache not modified: ${cacheCountryCode}`);
@@ -192,7 +192,7 @@ export async function Request($request) {
                                         switch (response?.status) {
                                             case 200:
                                                 if (!response?.eTag || !response?.body?.length) Console.warn(`Skip cache update: ${cacheCountryCode}`);
-                                                else GEOResourceManifest.setCache(Caches, cacheCountryCode, response.eTag, response.body);
+                                                else await GEOResourceManifest.setCache(Caches, cacheCountryCode, response.eTag, response.body, env);
                                                 break;
                                             case 304:
                                                 Console.info(`Cache not modified: ${cacheCountryCode}`);
