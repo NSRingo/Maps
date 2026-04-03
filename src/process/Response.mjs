@@ -118,37 +118,46 @@ export async function Response($request, $response) {
                                 case "/geo_manifest/dynamic/config": {
                                     body = GEOResourceManifestDownload.decode(rawBody);
                                     const CountryCode = url.searchParams.get("country_code");
-                                    const ETag = $response.headers?.Etag ?? $response.headers?.etag;
+                                    const caches = {};
+                                    let isReady = true;
                                     switch (CountryCode) {
                                         case "CN": {
-                                            //GEOResourceManifest.cacheResourceManifest(body, Caches, "CN", ETag);
-                                            Caches.CN = body;
-                                            const { ETag: XXETag, body: USBody } = await GEOResourceManifest.downloadResourceManifest($request, "US");
-                                            Caches.XX = GEOResourceManifestDownload.decode(USBody);
+                                            caches.CN = body;
+                                            caches.XX = GEOResourceManifest.decodeCache(Caches, "XX");
+                                            if (!caches.XX) {
+                                                Console.warn(`Missing cache: XX`);
+                                                isReady = false;
+                                            }
                                             break;
                                         }
                                         case "KR": {
-                                            //GEOResourceManifest.cacheResourceManifest(body, Caches, "KR", ETag);
-                                            Caches.KR = body;
-                                            const { ETag: CNETag, body: CNBody } = await GEOResourceManifest.downloadResourceManifest($request, "CN");
-                                            Caches.CN = GEOResourceManifestDownload.decode(CNBody);
+                                            caches.KR = body;
+                                            caches.CN = GEOResourceManifest.decodeCache(Caches, "CN");
+                                            caches.XX = GEOResourceManifest.decodeCache(Caches, "XX");
+                                            if (!caches.CN || !caches.XX) {
+                                                Console.warn(`Missing cache: ${!caches.CN ? "CN" : "XX"}`);
+                                                isReady = false;
+                                            }
                                             break;
                                         }
                                         default: {
-                                            //GEOResourceManifest.cacheResourceManifest(body, Caches, "XX", ETag);
-                                            Caches.XX = body;
-                                            const { ETag: CNETag, body: CNBody } = await GEOResourceManifest.downloadResourceManifest($request, "CN");
-                                            Caches.CN = GEOResourceManifestDownload.decode(CNBody);
+                                            caches.XX = body;
+                                            caches.CN = GEOResourceManifest.decodeCache(Caches, "CN");
+                                            if (!caches.CN) {
+                                                Console.warn(`Missing cache: CN`);
+                                                isReady = false;
+                                            }
                                             break;
                                         }
                                     }
-                                    body.tileSet = GEOResourceManifest.tileSets(body.tileSet, Caches, Settings, CountryCode);
-                                    body.attribution = GEOResourceManifest.attributions(body.attribution, Caches, CountryCode);
-                                    body.resource = GEOResourceManifest.resources(body.resource, Caches, CountryCode);
-                                    body.dataSet = GEOResourceManifest.dataSets(body.dataSet, Caches, CountryCode);
-                                    body.urlInfoSet = GEOResourceManifest.urlInfoSets(body.urlInfoSet, Caches, Settings, CountryCode);
-                                    body.muninBucket = GEOResourceManifest.muninBuckets(body.muninBucket, Caches, Settings);
-                                    body.displayString = GEOResourceManifest.displayStrings(body.displayString, Caches, CountryCode);
+                                    if (!isReady) break;
+                                    body.tileSet = GEOResourceManifest.tileSets(body.tileSet, caches, Settings, CountryCode);
+                                    body.attribution = GEOResourceManifest.attributions(body.attribution, caches, CountryCode);
+                                    body.resource = GEOResourceManifest.resources(body.resource, caches, CountryCode);
+                                    body.dataSet = GEOResourceManifest.dataSets(body.dataSet, caches, CountryCode);
+                                    body.urlInfoSet = GEOResourceManifest.urlInfoSets(body.urlInfoSet, caches, Settings, CountryCode);
+                                    body.muninBucket = GEOResourceManifest.muninBuckets(body.muninBucket, caches, Settings);
+                                    body.displayString = GEOResourceManifest.displayStrings(body.displayString, caches, CountryCode);
                                     body.tileGroup = GEOResourceManifest.tileGroups(body.tileGroup, body.tileSet, body.attribution, body.resource);
                                     Console.debug(`releaseInfo: ${body.releaseInfo}`);
                                     rawBody = GEOResourceManifestDownload.encode(body);

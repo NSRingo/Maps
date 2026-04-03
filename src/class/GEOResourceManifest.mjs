@@ -1,7 +1,15 @@
-import { $app, Console, fetch, Lodash as _, Storage } from "@nsnanocat/util";
+import { Console, fetch, Storage } from "@nsnanocat/util";
+import GEOResourceManifestDownload from "./GEOResourceManifestDownload.mjs";
 export default class GEOResourceManifest {
-	static async downloadResourceManifest(request = $request, countryCode = "CN") {
-		Console.log("☑️ Download ResourceManifest");
+	/**
+	 * 下载资源清单二进制。
+	 * Download resource manifest binary.
+	 * @param {object} request 请求对象 / Request object.
+	 * @param {string} countryCode 国家代码 / Country code.
+	 * @returns {Promise<{status: number, eTag: string|undefined, body: Uint8Array}>} 下载结果 / Download result.
+	 */
+	static async download(request = $request, countryCode = "CN") {
+		Console.log("☑️ Download");
 		const newRequest = { ...request };
 		newRequest.url = new URL(newRequest.url);
 		newRequest.url.searchParams.set("country_code", countryCode);
@@ -9,34 +17,128 @@ export default class GEOResourceManifest {
 		newRequest["binary-mode"] = true;
 		const response = await fetch(newRequest);
 		const rawBody = response.bodyBytes ? new Uint8Array(response.bodyBytes) : response.body ?? new Uint8Array();
-		Console.log("✅ Download ResourceManifest");
-		return { ETag: response.headers?.Etag ?? response.headers?.etag, body: rawBody };
+		Console.log("✅ Download");
+		return { status: response.status ?? response.statusCode ?? 0, eTag: response.headers?.Etag ?? response.headers?.etag, body: rawBody };
 	}
 
-	static cacheResourceManifest(body = {}, cache = {}, countryCode = "CN", ETag = "") {
-		Console.log("☑️ Cache ResourceManifest");
-		switch (countryCode) {
-			case "CN":
-				if (ETag !== cache?.CN?.ETag) {
-					cache.CN = { ...body, ETag };
-					Storage.setItem("@iRingo.Maps.Caches", cache);
-					Console.log("✅ Cache ResourceManifest");
+	/**
+	 * 读取资源清单缓存。
+	 * Read resource manifest cache.
+	 * @param {object} caches 缓存对象 / Cache object.
+	 * @param {string} countryCode 国家代码 / Country code.
+	 * @returns {{eTag?: string, base64?: string}|undefined} 缓存条目 / Cache entry.
+	 */
+	static getCache(caches = {}, countryCode = "CN") {
+		Console.log("☑️ Get Cache");
+		const cache = caches?.GeoManifest?.[countryCode];
+		switch (typeof cache?.base64) {
+			case "string":
+				if (cache.base64) {
+					Console.log("✅ Get Cache");
+					return cache;
 				}
 				break;
-			case "KR":
-				if (ETag !== cache?.KR?.ETag) {
-					cache.KR = { ...body, ETag };
-					Storage.setItem("@iRingo.Maps.Caches", cache);
-					Console.log("✅ Cache ResourceManifest");
+		}
+		Console.log("✅ Get Cache");
+		return undefined;
+	}
+
+	/**
+	 * 写入资源清单缓存。
+	 * Write resource manifest cache.
+	 * @param {object} caches 缓存对象 / Cache object.
+	 * @param {string} countryCode 国家代码 / Country code.
+	 * @param {string} eTag 实体标签 / Entity tag.
+	 * @param {Uint8Array|ArrayBuffer} rawBody 原始二进制 / Raw binary body.
+	 * @returns {boolean} 是否写入成功 / Whether cache is written.
+	 */
+	static setCache(caches = {}, countryCode = "CN", eTag = "", rawBody = new Uint8Array()) {
+		Console.log("☑️ Set Cache");
+		if (!eTag) {
+			Console.warn("❎ Set Cache", `Missing eTag: ${countryCode}`);
+			return false;
+		}
+		rawBody = rawBody instanceof Uint8Array ? rawBody : new Uint8Array(rawBody ?? []);
+		if (!rawBody.length) {
+			Console.warn("❎ Set Cache", `Empty body: ${countryCode}`);
+			return false;
+		}
+		let base64 = "";
+		try {
+			switch (true) {
+				case typeof globalThis.Buffer !== "undefined":
+					base64 = globalThis.Buffer.from(rawBody.buffer, rawBody.byteOffset, rawBody.byteLength).toString("base64");
+					break;
+				case typeof globalThis.btoa === "function": {
+					const chunks = [];
+					for (let index = 0; index < rawBody.length; index += 0x2000) {
+						const chunk = rawBody.subarray(index, index + 0x2000);
+						let binary = "";
+						for (let inner = 0; inner < chunk.length; inner++) binary += String.fromCharCode(chunk[inner]);
+						chunks.push(binary);
+					}
+					base64 = globalThis.btoa(chunks.join(""));
+					break;
 				}
-				break;
-			default:
-				if (ETag !== cache?.XX?.ETag) {
-					cache.XX = { ...body, ETag };
-					Storage.setItem("@iRingo.Maps.Caches", cache);
-					Console.log("✅ Cache ResourceManifest");
+				default:
+					throw new Error("Unsupported base64 encoder");
+			}
+		} catch (error) {
+			Console.error(error);
+			Console.warn("❎ Set Cache", `Encode failed: ${countryCode}`);
+			return false;
+		}
+		if (!base64) {
+			Console.warn("❎ Set Cache", `Empty base64: ${countryCode}`);
+			return false;
+		}
+		if (typeof caches.GeoManifest !== "object" || caches.GeoManifest === null) caches.GeoManifest = {};
+		caches.GeoManifest[countryCode] = { eTag, base64 };
+		const result = Storage.setItem("@iRingo.Maps.Caches", caches);
+		Console.log("✅ Set Cache");
+		return result;
+	}
+
+	/**
+	 * 解码资源清单缓存。
+	 * Decode resource manifest cache.
+	 * @param {object} caches 缓存对象 / Cache object.
+	 * @param {string} countryCode 国家代码 / Country code.
+	 * @returns {object|undefined} 解码结果 / Decoded manifest.
+	 */
+	static decodeCache(caches = {}, countryCode = "CN") {
+		Console.log("☑️ Decode Cache");
+		const cache = this.getCache(caches, countryCode);
+		if (!cache?.base64) {
+			Console.warn("❎ Decode Cache", `Missing cache: ${countryCode}`);
+			return undefined;
+		}
+		try {
+			let rawBody;
+			switch (true) {
+				case typeof globalThis.Buffer !== "undefined":
+					rawBody = new Uint8Array(globalThis.Buffer.from(cache.base64, "base64"));
+					break;
+				case typeof globalThis.atob === "function": {
+					const binary = globalThis.atob(cache.base64);
+					rawBody = new Uint8Array(binary.length);
+					for (let index = 0; index < binary.length; index++) rawBody[index] = binary.charCodeAt(index);
+					break;
 				}
-				break;
+				default:
+					throw new Error("Unsupported base64 decoder");
+			}
+			if (!rawBody?.length) {
+				Console.warn("❎ Decode Cache", `Empty body: ${countryCode}`);
+				return undefined;
+			}
+			const body = GEOResourceManifestDownload.decode(rawBody);
+			Console.log("✅ Decode Cache");
+			return body;
+		} catch (error) {
+			Console.error(error);
+			Console.warn("❎ Decode Cache", `Decode failed: ${countryCode}`);
+			return undefined;
 		}
 	}
 
@@ -358,7 +460,7 @@ export default class GEOResourceManifest {
 						break;
 					case "MUNIN_METADATA": // 57 四处看看 元数据
 						Console.info(`Munin style: ${tile?.style}`);
-						switch ("XX" ?? settings.TileSet.Munin) {
+						switch (settings.TileSet.Munin) {
 							case "CN":
 								tile = caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale && i.size === tile.size) || caches?.CN?.tileSet?.find(i => i.style === tile.style && i.scale === tile.scale) || caches?.CN?.tileSet?.find(i => i.style === tile.style) || tile;
 								break;
@@ -652,7 +754,7 @@ export default class GEOResourceManifest {
 					delete urlInfoSet.polyLocationShiftURL;
 					break;
 			}
-			switch (settings.Config?.Announcements?.Environment?.default) {
+			switch (settings.Config?.Announcements?.Environment ?? settings.Config?.Announcements?.["Environment:"]?.default ?? settings.Config?.Announcements?.["Environment:"]) {
 				case "AUTO":
 				default:
 					break;
