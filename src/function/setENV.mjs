@@ -9,19 +9,13 @@ import { Console } from "@nsnanocat/util";
  * @param {Object} database - Default DataBase
  * @return {Promise<Object>} { Settings, Caches, Configs }
  */
-export default async function setENV(name, platforms, database, KV) {
+export default async function setENV(name, platforms, database) {
 	Console.log("☑️ Set Environment Variables");
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
-	if (KV) {
-		const persistedCaches = await KV.getItem("@iRingo.Maps.Caches", {});
-		for (const key in Caches) delete Caches[key];
-		if (typeof persistedCaches === "object" && persistedCaches !== null) Object.assign(Caches, persistedCaches);
-	} else {
-		delete Caches.GeoManifest;
-		delete Caches.CN;
-		delete Caches.XX;
-		delete Caches.KR;
-	}
+	delete Caches.GeoManifest;
+	delete Caches.CN;
+	delete Caches.XX;
+	delete Caches.KR;
 	/***************** Settings *****************/
 	Console.info(`typeof Settings: ${typeof Settings}`, `Settings: ${JSON.stringify(Settings, null, 2)}`);
 	/***************** Caches *****************/

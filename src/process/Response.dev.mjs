@@ -23,7 +23,7 @@ export async function Response($request, $response, KV) {
      * 设置
      * @type {{Settings: import('./types').Settings}}
      */
-    const { Settings, Caches, Configs } = await setENV("iRingo", PLATFORM, database, KV);
+    const { Settings, Caches, Configs } = await setENV("iRingo", PLATFORM, database);
     Console.logLevel = Settings.LogLevel;
     // 创建空数据
     let body = {};
@@ -176,7 +176,7 @@ export async function Response($request, $response, KV) {
                                     switch (CountryCode) {
                                         case "CN": {
                                             caches.CN = body;
-											caches.XX = GEOResourceManifest.decodeCache(Caches, xxURL.search);
+											caches.XX = await GEOResourceManifest.decodeCache(Caches, xxURL.search, KV);
                                             if (!caches.XX) {
                                                 Console.warn(`Missing cache: XX`);
                                                 isReady = false;
@@ -185,8 +185,8 @@ export async function Response($request, $response, KV) {
                                         }
                                         case "KR": {
                                             caches.KR = body;
-											caches.CN = GEOResourceManifest.decodeCache(Caches, cnURL.search);
-											caches.XX = GEOResourceManifest.decodeCache(Caches, xxURL.search);
+											caches.CN = await GEOResourceManifest.decodeCache(Caches, cnURL.search, KV);
+											caches.XX = await GEOResourceManifest.decodeCache(Caches, xxURL.search, KV);
                                             if (!caches.CN || !caches.XX) {
                                                 Console.warn(`Missing cache: ${!caches.CN ? "CN" : "XX"}`);
                                                 isReady = false;
@@ -195,7 +195,7 @@ export async function Response($request, $response, KV) {
                                         }
                                         default: {
                                             caches.XX = body;
-											caches.CN = GEOResourceManifest.decodeCache(Caches, cnURL.search);
+											caches.CN = await GEOResourceManifest.decodeCache(Caches, cnURL.search, KV);
                                             if (!caches.CN) {
                                                 Console.warn(`Missing cache: CN`);
                                                 isReady = false;

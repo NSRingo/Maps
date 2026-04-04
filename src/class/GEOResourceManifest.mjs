@@ -26,15 +26,20 @@ export default class GEOResourceManifest {
 	 * Read resource manifest cache.
 	 * @param {object} caches 缓存对象 / Cache object.
 	 * @param {string} queryString 查询字符串（包含前导问号） / Query string with leading question mark.
-	 * @returns {{eTag?: string, base64?: string}|undefined} 缓存条目 / Cache entry.
+	 * @param {object} KV Shared KV storage instance.
+	 * @returns {Promise<{eTag?: string, base64?: string}|undefined>} 缓存条目 / Cache entry.
 	 */
-	static getCache(caches = {}, queryString = "") {
+	static async getCache(caches = {}, queryString = "", KV) {
 		Console.log("☑️ Get Cache");
 		if (!queryString) {
 			Console.error("Get Cache", "Missing query string");
 			return undefined;
 		}
-		const cache = caches?.[queryString];
+		let cache;
+		if (KV) {
+			cache = await KV.getItem(`@iRingo.Maps.Caches.${queryString}`);
+			if (typeof cache === "object" && cache !== null) caches[queryString] = cache;
+		} else cache = caches?.[queryString];
 		switch (typeof cache?.base64) {
 			case "string":
 				if (cache.base64) {
@@ -115,11 +120,12 @@ export default class GEOResourceManifest {
 	 * Decode resource manifest cache.
 	 * @param {object} caches 缓存对象 / Cache object.
 	 * @param {string} queryString 查询字符串（包含前导问号） / Query string with leading question mark.
-	 * @returns {object|undefined} 解码结果 / Decoded manifest.
+	 * @param {object} KV Shared KV storage instance.
+	 * @returns {Promise<object|undefined>} 解码结果 / Decoded manifest.
 	 */
-	static decodeCache(caches = {}, queryString = "") {
+	static async decodeCache(caches = {}, queryString = "", KV) {
 		Console.log("☑️ Decode Cache");
-		const cache = GEOResourceManifest.getCache(caches, queryString);
+		const cache = await GEOResourceManifest.getCache(caches, queryString, KV);
 		if (!cache?.base64) {
 			Console.error("Decode Cache", `Missing cache: ${queryString}`);
 			return undefined;

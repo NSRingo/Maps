@@ -19,7 +19,7 @@ export async function Request($request, KV) {
      * 设置
      * @type {{Settings: import('./types').Settings}}
      */
-    const { Settings, Caches, Configs } = await setENV("iRingo", "Maps", database, KV);
+    const { Settings, Caches, Configs } = await setENV("iRingo", "Maps", database);
     Console.logLevel = Settings.LogLevel;
     // 创建空数据
     let body = {};
@@ -137,7 +137,7 @@ export async function Request($request, KV) {
 										const cacheURL = new URL(url.toString());
 										const requestCountryCode = cacheCountryCode === "XX" ? "US" : cacheCountryCode;
 										cacheURL.searchParams.set("country_code", requestCountryCode);
-                                        const cache = GEOResourceManifest.getCache(Caches, cacheURL.search);
+                                        const cache = await GEOResourceManifest.getCache(Caches, cacheURL.search, KV);
                                         let response;
                                         if (cache?.eTag) {
                                             response = await GEOResourceManifest.download({ ...request, headers: { ...request.headers, "If-None-Match": cache.eTag } }, requestCountryCode);
@@ -163,7 +163,7 @@ export async function Request($request, KV) {
 										const cacheURL = new URL(url.toString());
 										const requestCountryCode = cacheCountryCode === "XX" ? "US" : cacheCountryCode;
 										cacheURL.searchParams.set("country_code", requestCountryCode);
-                                        const cache = GEOResourceManifest.getCache(Caches, cacheURL.search);
+                                        const cache = await GEOResourceManifest.getCache(Caches, cacheURL.search, KV);
                                         let response;
                                         if (cache?.eTag) {
                                             response = await GEOResourceManifest.download({ ...request, headers: { ...request.headers, "If-None-Match": cache.eTag } }, requestCountryCode);
@@ -188,7 +188,7 @@ export async function Request($request, KV) {
                                     for (const cacheCountryCode of ["CN"]) {
 										const cacheURL = new URL(url.toString());
                                         cacheURL.searchParams.set("country_code", cacheCountryCode);
-										const cache = GEOResourceManifest.getCache(Caches, cacheURL.search);
+    									const cache = await GEOResourceManifest.getCache(Caches, cacheURL.search, KV);
                                         let response;
                                         if (cache?.eTag) {
                                             response = await GEOResourceManifest.download({ ...request, headers: { ...request.headers, "If-None-Match": cache.eTag } }, cacheCountryCode);
