@@ -14,15 +14,16 @@ import { Console } from "@nsnanocat/util";
 export default async function setENV(name, platforms, database, env) {
 	Console.log("☑️ Set Environment Variables");
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
-	delete Caches.GeoManifest;
-	delete Caches.CN;
-	delete Caches.XX;
-	delete Caches.KR;
 	if (env?.PersistentStore) {
 		const storage = new Storage({ env: { namespace: env.PersistentStore } });
-		const geoManifest = await storage.getItem("@iRingo.Maps.Caches.GeoManifest", {});
-		for (const key in Caches) if (key.startsWith("?")) delete Caches[key];
-		if (typeof geoManifest === "object" && geoManifest !== null) for (const key in geoManifest) if (key.startsWith("?")) Caches[key] = geoManifest[key];
+		const persistedCaches = await storage.getItem("@iRingo.Maps.Caches", {});
+		for (const key in Caches) delete Caches[key];
+		if (typeof persistedCaches === "object" && persistedCaches !== null) Object.assign(Caches, persistedCaches);
+	} else {
+		delete Caches.GeoManifest;
+		delete Caches.CN;
+		delete Caches.XX;
+		delete Caches.KR;
 	}
 	/***************** Settings *****************/
 	Console.info(`typeof Settings: ${typeof Settings}`, `Settings: ${JSON.stringify(Settings, null, 2)}`);

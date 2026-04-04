@@ -104,12 +104,7 @@ export default class GEOResourceManifest {
 		}
 		if (!env?.PersistentStore) for (const key in caches) if (key.startsWith("?")) delete caches[key];
 		caches[queryString] = { eTag, base64 };
-		let result;
-		if (env?.PersistentStore) {
-			const geoManifest = {};
-			for (const key in caches) if (key.startsWith("?")) geoManifest[key] = caches[key];
-			result = await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches.GeoManifest", geoManifest);
-		} else result = PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
+		const result = env?.PersistentStore ? await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches", caches) : PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
 		Console.log("✅ Set Cache");
 		return result;
 	}
