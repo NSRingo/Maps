@@ -102,7 +102,7 @@ export default class GEOResourceManifest {
 		let result;
 		if (KV) result = await KV.setItem(`@iRingo.Maps.Caches.${queryString}`, { eTag, base64 });
 		else {
-			caches = {};
+			result = Storage.setItem(`@iRingo.Maps.Caches`, {});
 			result = Storage.setItem(`@iRingo.Maps.Caches.${queryString}`, { eTag, base64 });
 		}
 		Console.log("✅ Set Cache");
