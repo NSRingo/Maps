@@ -16,7 +16,7 @@ export default class GEOResourceManifest {
 		newRequest.url = newRequest.url.toString();
 		newRequest["binary-mode"] = true;
 		const response = await fetch(newRequest);
-		const rawBody = response.bodyBytes ? new Uint8Array(response.bodyBytes) : response.body ?? new Uint8Array();
+		const rawBody = response.bodyBytes ? new Uint8Array(response.bodyBytes) : (response.body ?? new Uint8Array());
 		Console.log("✅ Download");
 		return { status: response.status ?? response.statusCode ?? 0, eTag: response.headers?.Etag ?? response.headers?.etag, body: rawBody };
 	}
@@ -39,14 +39,12 @@ export default class GEOResourceManifest {
 		if (KV) cache = await KV.getItem(`@iRingo.Maps.Caches.${queryString}`);
 		switch (typeof cache?.base64) {
 			case "string":
-				if (cache.base64) {
-					Console.log("✅ Get Cache");
-					return cache;
-				}
-				break;
+				Console.log("✅ Get Cache");
+				return cache;
+			case "undefined":
+				Console.warn("Get Cache", `Cache not found: ${queryString}`);
+				return undefined;
 		}
-		Console.log("✅ Get Cache");
-		return undefined;
 	}
 
 	/**
