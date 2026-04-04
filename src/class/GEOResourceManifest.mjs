@@ -35,11 +35,8 @@ export default class GEOResourceManifest {
 			Console.error("Get Cache", "Missing query string");
 			return undefined;
 		}
-		let cache;
-		if (KV) {
-			cache = await KV.getItem(`@iRingo.Maps.Caches.${queryString}`);
-			if (typeof cache === "object" && cache !== null) caches[queryString] = cache;
-		} else cache = caches?.[queryString];
+		let cache = caches?.[queryString];
+		if (KV) cache = await KV.getItem(`@iRingo.Maps.Caches.${queryString}`);
 		switch (typeof cache?.base64) {
 			case "string":
 				if (cache.base64) {
