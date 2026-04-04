@@ -32,7 +32,7 @@ export default class GEOResourceManifest {
 	static getCache(caches = {}, queryString = "") {
 		Console.log("☑️ Get Cache");
 		if (!queryString) {
-			Console.warn("❎ Get Cache", "Missing query string");
+			Console.error("Get Cache", "Missing query string");
 			return undefined;
 		}
 		const cache = caches?.GeoManifest?.[queryString];
@@ -61,16 +61,16 @@ export default class GEOResourceManifest {
 	static async setCache(caches = {}, queryString = "", eTag = "", rawBody = new Uint8Array(), env) {
 		Console.log("☑️ Set Cache");
 		if (!queryString) {
-			Console.warn("❎ Set Cache", "Missing query string");
+			Console.error("Set Cache", "Missing query string");
 			return false;
 		}
 		if (!eTag) {
-			Console.warn("❎ Set Cache", `Missing eTag: ${queryString}`);
+			Console.error("Set Cache", `Missing eTag: ${queryString}`);
 			return false;
 		}
 		rawBody = rawBody instanceof Uint8Array ? rawBody : new Uint8Array(rawBody ?? []);
 		if (!rawBody.length) {
-			Console.warn("❎ Set Cache", `Empty body: ${queryString}`);
+			Console.error("Set Cache", `Empty body: ${queryString}`);
 			return false;
 		}
 		let base64 = "";
@@ -95,11 +95,11 @@ export default class GEOResourceManifest {
 			}
 		} catch (error) {
 			Console.error(error);
-			Console.warn("❎ Set Cache", `Encode failed: ${queryString}`);
+			Console.error("Set Cache", `Encode failed: ${queryString}`);
 			return false;
 		}
 		if (!base64) {
-			Console.warn("❎ Set Cache", `Empty base64: ${queryString}`);
+			Console.error("Set Cache", `Empty base64: ${queryString}`);
 			return false;
 		}
 		if (typeof caches.GeoManifest !== "object" || caches.GeoManifest === null) caches.GeoManifest = {};
@@ -122,7 +122,7 @@ export default class GEOResourceManifest {
 		Console.log("☑️ Decode Cache");
 		const cache = GEOResourceManifest.getCache(caches, queryString);
 		if (!cache?.base64) {
-			Console.warn("❎ Decode Cache", `Missing cache: ${queryString}`);
+			Console.error("Decode Cache", `Missing cache: ${queryString}`);
 			return undefined;
 		}
 		try {
@@ -141,7 +141,7 @@ export default class GEOResourceManifest {
 					throw new Error("Unsupported base64 decoder");
 			}
 			if (!rawBody?.length) {
-				Console.warn("❎ Decode Cache", `Empty body: ${queryString}`);
+				Console.error("Decode Cache", `Empty body: ${queryString}`);
 				return undefined;
 			}
 			const body = GEOResourceManifestDownload.decode(rawBody);
@@ -149,7 +149,7 @@ export default class GEOResourceManifest {
 			return body;
 		} catch (error) {
 			Console.error(error);
-			Console.warn("❎ Decode Cache", `Decode failed: ${queryString}`);
+			Console.error("Decode Cache", `Decode failed: ${queryString}`);
 			return undefined;
 		}
 	}
