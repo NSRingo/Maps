@@ -35,7 +35,7 @@ export default class GEOResourceManifest {
 			Console.error("Get Cache", "Missing query string");
 			return undefined;
 		}
-		const cache = caches?.GeoManifest?.[queryString];
+		const cache = caches?.[queryString];
 		switch (typeof cache?.base64) {
 			case "string":
 				if (cache.base64) {
@@ -102,11 +102,14 @@ export default class GEOResourceManifest {
 			Console.error("Set Cache", `Empty base64: ${queryString}`);
 			return false;
 		}
-		if (typeof caches.GeoManifest !== "object" || caches.GeoManifest === null) caches.GeoManifest = {};
-		caches.GeoManifest[queryString] = { eTag, base64 };
-		const result = env?.PersistentStore
-			? await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches.GeoManifest", caches.GeoManifest)
-			: PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
+		if (!env?.PersistentStore) for (const key in caches) if (key.startsWith("?")) delete caches[key];
+		caches[queryString] = { eTag, base64 };
+		let result;
+		if (env?.PersistentStore) {
+			const geoManifest = {};
+			for (const key in caches) if (key.startsWith("?")) geoManifest[key] = caches[key];
+			result = await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches.GeoManifest", geoManifest);
+		} else result = PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
 		Console.log("✅ Set Cache");
 		return result;
 	}
