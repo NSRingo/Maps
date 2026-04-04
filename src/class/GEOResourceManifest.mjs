@@ -92,13 +92,10 @@ export default class GEOResourceManifest {
 				default:
 					throw new Error("Unsupported base64 encoder");
 			}
+			if (!base64) throw new Error(`Empty base64: ${queryString}`);
 		} catch (error) {
 			Console.error(error);
 			Console.error("Set Cache", `Encode failed: ${queryString}`);
-			return false;
-		}
-		if (!base64) {
-			Console.error("Set Cache", `Empty base64: ${queryString}`);
 			return false;
 		}
 		let result;
