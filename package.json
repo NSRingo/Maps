@@ -48,7 +48,7 @@
 		"node-polyfill-webpack-plugin": "^4.1.0"
 	},
 	"dependencies": {
-		"@auraflare/shared": "^1.0.2",
+		"@auraflare/shared": "^1.1.0",
 		"@biomejs/biome": "^2.4.6",
 		"@nsnanocat/util": "^2.5.17",
 		"@protobuf-ts/runtime": "^2.11.1",
