@@ -106,11 +106,13 @@ export default class GEOResourceManifest {
 			Console.error("Set Cache", `Empty base64: ${queryString}`);
 			return false;
 		}
-		if (!KV) for (const key in caches) if (key.startsWith("?")) delete caches[key];
-		caches[queryString] = { eTag, base64 };
-		const result = KV
-			? await KV.setItem("@iRingo.Maps.Caches", caches)
-			: Storage.setItem("@iRingo.Maps.Caches", caches);
+		let result;
+		if (KV) result = await KV.setItem(`@iRingo.Maps.Caches.${queryString}`, { eTag, base64 });
+		else {
+			caches = {};
+			caches[queryString] = { eTag, base64 };
+			result = Storage.setItem("@iRingo.Maps.Caches", caches);
+		}
 		Console.log("✅ Set Cache");
 		return result;
 	}
