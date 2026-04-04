@@ -1,5 +1,4 @@
-import { KV as Storage } from "@auraflare/shared";
-import { Console, fetch, Storage as PersistentStorage } from "@nsnanocat/util";
+import { Console, fetch, Storage } from "@nsnanocat/util";
 import GEOResourceManifestDownload from "./GEOResourceManifestDownload.mjs";
 export default class GEOResourceManifest {
 	/**
@@ -55,10 +54,10 @@ export default class GEOResourceManifest {
 	 * @param {string} queryString 查询字符串（包含前导问号） / Query string with leading question mark.
 	 * @param {string} eTag 实体标签 / Entity tag.
 	 * @param {Uint8Array|ArrayBuffer} rawBody 原始二进制 / Raw binary body.
-	 * @param {object} env Worker 环境对象 / Worker environment bindings.
+	 * @param {object} KV Shared KV storage instance.
 	 * @returns {Promise<boolean>} 是否写入成功 / Whether cache is written.
 	 */
-	static async setCache(caches = {}, queryString = "", eTag = "", rawBody = new Uint8Array(), env) {
+	static async setCache(caches = {}, queryString = "", eTag = "", rawBody = new Uint8Array(), KV) {
 		Console.log("☑️ Set Cache");
 		if (!queryString) {
 			Console.error("Set Cache", "Missing query string");
@@ -102,9 +101,11 @@ export default class GEOResourceManifest {
 			Console.error("Set Cache", `Empty base64: ${queryString}`);
 			return false;
 		}
-		if (!env?.PersistentStore) for (const key in caches) if (key.startsWith("?")) delete caches[key];
+		if (!KV) for (const key in caches) if (key.startsWith("?")) delete caches[key];
 		caches[queryString] = { eTag, base64 };
-		const result = env?.PersistentStore ? await new Storage({ env: { namespace: env.PersistentStore } }).setItem("@iRingo.Maps.Caches", caches) : PersistentStorage.setItem("@iRingo.Maps.Caches", caches);
+		const result = KV
+			? await KV.setItem("@iRingo.Maps.Caches", caches)
+			: Storage.setItem("@iRingo.Maps.Caches", caches);
 		Console.log("✅ Set Cache");
 		return result;
 	}

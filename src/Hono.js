@@ -1,3 +1,4 @@
+import { KV as Storage } from "@auraflare/shared";
 import { fetch } from "@nsnanocat/util";
 import { Hono } from "hono";
 import HonoWorkerAdapter from "./class/HonoWorkerAdapter.mjs";
@@ -8,7 +9,8 @@ import { Request } from "./process/Request.mjs";
 export default new Hono().all("/:rest{.*}", async c => {
 	let $request = await HonoWorkerAdapter.buildRequest(c);
 	let $response;
-	({ $request, $response } = await Request($request, c.env));
+	const KV = c.env ? new Storage({ env: { namespaces: new Map([["", c.env.PersistentStore], ["@iRingo.Maps.Caches", c.env.Maps]]) } }) : undefined;
+	({ $request, $response } = await Request($request, KV));
 	switch (typeof $response) {
 		case "object": // 有构造回复数据，返回构造的回复数据
 			console.debug("finally", `echo $response: ${JSON.stringify($response, null, 2)}`);
@@ -16,7 +18,7 @@ export default new Hono().all("/:rest{.*}", async c => {
 		case "undefined": // 无构造回复数据，发送修改的请求数据
 			console.debug("finally", `$request: ${JSON.stringify($request, null, 2)}`);
 			$response = await fetch($request);
-			$response = await Response($request, $response, c.env);
+			$response = await Response($request, $response, KV);
 			return HonoWorkerAdapter.writeResponse(c, $response);
 		default:
 			console.error(`不合法的 $response 类型: ${typeof $response}`);

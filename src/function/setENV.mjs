@@ -1,4 +1,3 @@
-import { KV as Storage } from "@auraflare/shared";
 import getStorage from "@nsnanocat/util/getStorage.mjs";
 import { Console } from "@nsnanocat/util";
 
@@ -8,15 +7,13 @@ import { Console } from "@nsnanocat/util";
  * @param {String} name - Persistent Store Key
  * @param {Array} platforms - Platform Names
  * @param {Object} database - Default DataBase
- * @param {Object} env - Worker Environment Bindings
  * @return {Promise<Object>} { Settings, Caches, Configs }
  */
-export default async function setENV(name, platforms, database, env) {
+export default async function setENV(name, platforms, database, KV) {
 	Console.log("☑️ Set Environment Variables");
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
-	if (env?.PersistentStore) {
-		const storage = new Storage({ env: { namespace: env.PersistentStore } });
-		const persistedCaches = await storage.getItem("@iRingo.Maps.Caches", {});
+	if (KV) {
+		const persistedCaches = await KV.getItem("@iRingo.Maps.Caches", {});
 		for (const key in Caches) delete Caches[key];
 		if (typeof persistedCaches === "object" && persistedCaches !== null) Object.assign(Caches, persistedCaches);
 	} else {
